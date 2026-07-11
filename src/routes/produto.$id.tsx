@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Layout } from "@/components/Layout";
-import { getProduct, categoryLabels } from "@/data/products";
+import { getProduct, categoryLabels, type Product } from "@/data/products";
 import { whatsappLink } from "@/lib/contact";
 import { ArrowLeft, MessageCircle } from "lucide-react";
 
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/produto/$id")({
 });
 
 function ProdutoPage() {
-  const { product } = Route.useLoaderData();
+  const { product } = Route.useLoaderData() as { product: Product };
   const msg = `Olá! Tenho interesse no produto "${product.name}" do site.`;
 
   return (
