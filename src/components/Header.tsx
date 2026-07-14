@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import mark from "@/assets/gonza3dlab-mark.png.asset.json";
+
 
 const nav = [
   { to: "/", label: "Início" },
@@ -16,9 +18,10 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8">
         <Link to="/" className="flex items-center gap-2 font-display text-xl font-bold tracking-tight">
-          <span className="grid h-8 w-8 place-items-center rounded-md bg-primary text-primary-foreground">G</span>
+          <img src={mark.url} alt="Gonza3DLab" width={36} height={36} className="h-9 w-auto" />
           <span>Gonza<span className="text-primary">3D</span>Lab</span>
         </Link>
+
 
         <nav className="hidden items-center gap-8 md:flex">
           {nav.map((item) => (

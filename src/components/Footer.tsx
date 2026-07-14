@@ -2,6 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { Lock } from "lucide-react";
 import { EMAIL, INSTAGRAM, whatsappLink } from "@/lib/contact";
 import { useIsAdmin } from "@/lib/auth";
+import mark from "@/assets/gonza3dlab-mark.png.asset.json";
+
 
 export function Footer() {
   const { isAdmin, user } = useIsAdmin();
@@ -10,9 +12,10 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-4 md:px-8">
         <div className="md:col-span-2">
           <div className="flex items-center gap-2 font-display text-xl font-bold">
-            <span className="grid h-8 w-8 place-items-center rounded-md bg-primary text-primary-foreground">G</span>
+            <img src={mark.url} alt="Gonza3DLab" width={36} height={36} className="h-9 w-auto" />
             <span>Gonza<span className="text-primary">3D</span>Lab</span>
           </div>
+
           <p className="mt-4 max-w-md text-sm text-graphite-foreground/70">
             Impressão 3D sob demanda: miniaturas, peças técnicas, personalizados e protótipos com qualidade e precisão.
           </p>
