@@ -1,40 +1,51 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { Layout } from "@/components/Layout";
-import { getProduct, categoryLabels, type Product } from "@/data/products";
+import { fetchProductBySlug } from "@/lib/products";
 import { whatsappLink } from "@/lib/contact";
 import { ArrowLeft, MessageCircle } from "lucide-react";
 
 export const Route = createFileRoute("/produto/$id")({
-  loader: ({ params }) => {
-    const product = getProduct(params.id);
-    if (!product) throw notFound();
-    return { product };
-  },
-  head: ({ loaderData }) => ({
-    meta: loaderData
-      ? [
-          { title: `${loaderData.product.name} — Gonza3DLab` },
-          { name: "description", content: loaderData.product.shortDescription },
-          { property: "og:title", content: `${loaderData.product.name} — Gonza3DLab` },
-          { property: "og:description", content: loaderData.product.shortDescription },
-        ]
-      : [{ title: "Produto — Gonza3DLab" }, { name: "robots", content: "noindex" }],
+  head: ({ params }) => ({
+    meta: [
+      { title: `Produto — Gonza3DLab` },
+      { name: "description", content: "Detalhes do produto." },
+      { property: "og:title", content: `Produto — Gonza3DLab` },
+    ],
   }),
   component: ProdutoPage,
-  notFoundComponent: () => (
-    <Layout>
-      <div className="mx-auto max-w-3xl px-4 py-24 text-center">
-        <h1 className="font-display text-3xl font-bold">Produto não encontrado</h1>
-        <Link to="/catalogo" className="mt-6 inline-flex text-primary hover:underline">
-          ← Voltar ao catálogo
-        </Link>
-      </div>
-    </Layout>
-  ),
 });
 
 function ProdutoPage() {
-  const { product } = Route.useLoaderData() as { product: Product };
+  const { id: slug } = Route.useParams();
+  const { data: product, isLoading } = useQuery({
+    queryKey: ["product", slug],
+    queryFn: () => fetchProductBySlug(slug),
+  });
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  if (isLoading) {
+    return (
+      <Layout>
+        <div className="mx-auto max-w-3xl px-4 py-24 text-center text-muted-foreground">Carregando...</div>
+      </Layout>
+    );
+  }
+  if (!product) {
+    return (
+      <Layout>
+        <div className="mx-auto max-w-3xl px-4 py-24 text-center">
+          <h1 className="font-display text-3xl font-bold">Produto não encontrado</h1>
+          <Link to="/catalogo" className="mt-6 inline-flex text-primary hover:underline">
+            ← Voltar ao catálogo
+          </Link>
+        </div>
+      </Layout>
+    );
+  }
+
+  const heroImg = selectedImage ?? product.cover_image_url ?? product.images[0]?.image_url ?? null;
   const msg = `Olá! Tenho interesse no produto "${product.name}" do site.`;
 
   return (
@@ -45,28 +56,53 @@ function ProdutoPage() {
         </Link>
 
         <div className="mt-8 grid gap-10 md:grid-cols-2">
-          <div className={`aspect-square overflow-hidden rounded-2xl bg-gradient-to-br ${product.color} relative`}>
-            <div className="absolute inset-0 grid place-items-center">
-              <span className="font-display text-9xl font-bold text-white/20">3D</span>
+          <div>
+            <div className="aspect-square overflow-hidden rounded-2xl bg-gradient-to-br from-slate-700/40 to-slate-900/60 relative">
+              {heroImg ? (
+                <img src={heroImg} alt={product.name} className="h-full w-full object-cover" />
+              ) : (
+                <div className="absolute inset-0 grid place-items-center">
+                  <span className="font-display text-9xl font-bold text-white/20">3D</span>
+                </div>
+              )}
             </div>
+            {product.images.length > 1 && (
+              <div className="mt-3 grid grid-cols-5 gap-2">
+                {product.images.map((img) => (
+                  <button
+                    key={img.id}
+                    onClick={() => setSelectedImage(img.image_url)}
+                    className={`aspect-square overflow-hidden rounded-md border-2 transition ${
+                      heroImg === img.image_url ? "border-primary" : "border-transparent hover:border-border"
+                    }`}
+                  >
+                    <img src={img.image_url} alt="" className="h-full w-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="flex flex-col">
-            <span className="w-fit rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-              {categoryLabels[product.category]}
-            </span>
+            {product.category && (
+              <span className="w-fit rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                {product.category.name}
+              </span>
+            )}
             <h1 className="mt-4 font-display text-4xl font-bold md:text-5xl">{product.name}</h1>
-            <p className="mt-4 text-lg text-muted-foreground">{product.description}</p>
+            <p className="mt-4 text-lg text-muted-foreground whitespace-pre-line">{product.description}</p>
 
             <dl className="mt-6 grid grid-cols-2 gap-4 rounded-lg border border-border p-4">
               <div>
                 <dt className="text-xs uppercase tracking-wide text-muted-foreground">Material</dt>
-                <dd className="mt-1 font-semibold">{product.material}</dd>
+                <dd className="mt-1 font-semibold">{product.material || "—"}</dd>
               </div>
               <div>
                 <dt className="text-xs uppercase tracking-wide text-muted-foreground">Preço</dt>
                 <dd className="mt-1 font-semibold">
-                  {product.price ? `R$ ${product.price}` : "Sob consulta"}
+                  {product.price != null
+                    ? `R$ ${Number(product.price).toFixed(2).replace(".", ",")}`
+                    : "Sob consulta"}
                 </dd>
               </div>
             </dl>
