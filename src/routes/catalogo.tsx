@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Layout } from "@/components/Layout";
 import { ProductCard } from "@/components/ProductCard";
-import { products, categoryLabels, type ProductCategory } from "@/data/products";
+import { fetchCategories, fetchProducts } from "@/lib/products";
 
 export const Route = createFileRoute("/catalogo")({
   head: () => ({
@@ -16,17 +17,16 @@ export const Route = createFileRoute("/catalogo")({
   component: Catalogo,
 });
 
-const filters: Array<{ id: "all" | ProductCategory; label: string }> = [
-  { id: "all", label: "Todos" },
-  { id: "miniaturas", label: categoryLabels.miniaturas },
-  { id: "tecnicas", label: categoryLabels.tecnicas },
-  { id: "personalizados", label: categoryLabels.personalizados },
-  { id: "prototipos", label: categoryLabels.prototipos },
-];
-
 function Catalogo() {
-  const [filter, setFilter] = useState<(typeof filters)[number]["id"]>("all");
-  const visible = filter === "all" ? products : products.filter((p) => p.category === filter);
+  const [filter, setFilter] = useState<string>("all");
+
+  const { data: categories = [] } = useQuery({ queryKey: ["categories"], queryFn: fetchCategories });
+  const { data: products = [], isLoading } = useQuery({
+    queryKey: ["products"],
+    queryFn: () => fetchProducts({ activeOnly: true }),
+  });
+
+  const visible = filter === "all" ? products : products.filter((p) => p.category?.slug === filter);
 
   return (
     <Layout>
@@ -37,27 +37,41 @@ function Catalogo() {
         </p>
 
         <div className="mt-10 flex flex-wrap gap-2">
-          {filters.map((f) => (
-            <button
-              key={f.id}
-              onClick={() => setFilter(f.id)}
-              className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
-                filter === f.id
-                  ? "border-primary bg-primary text-primary-foreground"
-                  : "border-border bg-background text-muted-foreground hover:border-primary/40 hover:text-foreground"
-              }`}
-            >
-              {f.label}
-            </button>
+          <FilterBtn active={filter === "all"} onClick={() => setFilter("all")}>Todos</FilterBtn>
+          {categories.map((c) => (
+            <FilterBtn key={c.id} active={filter === c.slug} onClick={() => setFilter(c.slug)}>
+              {c.name}
+            </FilterBtn>
           ))}
         </div>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {visible.map((p) => (
-            <ProductCard key={p.id} product={p} />
-          ))}
-        </div>
+        {isLoading ? (
+          <p className="mt-10 text-muted-foreground">Carregando...</p>
+        ) : visible.length === 0 ? (
+          <p className="mt-10 text-muted-foreground">Nenhum produto disponível nesta categoria.</p>
+        ) : (
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {visible.map((p) => (
+              <ProductCard key={p.id} product={p} />
+            ))}
+          </div>
+        )}
       </section>
     </Layout>
+  );
+}
+
+function FilterBtn({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
+        active
+          ? "border-primary bg-primary text-primary-foreground"
+          : "border-border bg-background text-muted-foreground hover:border-primary/40 hover:text-foreground"
+      }`}
+    >
+      {children}
+    </button>
   );
 }

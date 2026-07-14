@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Lock } from "lucide-react";
+import { useIsAdmin } from "@/lib/auth";
 
 const nav = [
   { to: "/", label: "Início" },
@@ -12,6 +13,7 @@ const nav = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const { isAdmin } = useIsAdmin();
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8">
@@ -32,6 +34,14 @@ export function Header() {
               {item.label}
             </Link>
           ))}
+          {isAdmin && (
+            <Link
+              to="/admin"
+              className="inline-flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-primary"
+            >
+              <Lock className="h-3 w-3" /> Admin
+            </Link>
+          )}
           <Link
             to="/contato"
             className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:opacity-90 hover:shadow-[var(--shadow-glow)]"

@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { Layout } from "@/components/Layout";
 import { ProductCard } from "@/components/ProductCard";
-import { products } from "@/data/products";
+import { fetchProducts } from "@/lib/products";
 import { ArrowRight, Boxes, Cog, Sparkles, Zap } from "lucide-react";
 import heroImg from "@/assets/hero-printer.jpg";
 
@@ -10,7 +11,11 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  const featured = products.slice(0, 4);
+  const { data: featured = [] } = useQuery({
+    queryKey: ["products-featured"],
+    queryFn: () => fetchProducts({ activeOnly: true, limit: 4 }),
+  });
+
   return (
     <Layout>
       {/* Hero */}
@@ -77,24 +82,26 @@ function Home() {
       </section>
 
       {/* Destaques do catálogo */}
-      <section className="bg-muted/50 py-20">
-        <div className="mx-auto max-w-7xl px-4 md:px-8">
-          <div className="mb-12 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
-            <div>
-              <h2 className="font-display text-3xl font-bold md:text-4xl">Em destaque</h2>
-              <p className="mt-2 text-muted-foreground">Peças recém-saídas da impressora.</p>
+      {featured.length > 0 && (
+        <section className="bg-muted/50 py-20">
+          <div className="mx-auto max-w-7xl px-4 md:px-8">
+            <div className="mb-12 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
+              <div>
+                <h2 className="font-display text-3xl font-bold md:text-4xl">Em destaque</h2>
+                <p className="mt-2 text-muted-foreground">Peças recém-saídas da impressora.</p>
+              </div>
+              <Link to="/catalogo" className="text-sm font-semibold text-primary hover:underline">
+                Ver catálogo completo →
+              </Link>
             </div>
-            <Link to="/catalogo" className="text-sm font-semibold text-primary hover:underline">
-              Ver catálogo completo →
-            </Link>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {featured.map((p) => (
+                <ProductCard key={p.id} product={p} />
+              ))}
+            </div>
           </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {featured.map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-4 py-24 md:px-8">
