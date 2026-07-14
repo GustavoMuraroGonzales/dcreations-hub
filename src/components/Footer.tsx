@@ -1,7 +1,10 @@
 import { Link } from "@tanstack/react-router";
+import { Lock } from "lucide-react";
 import { EMAIL, INSTAGRAM, whatsappLink } from "@/lib/contact";
+import { useIsAdmin } from "@/lib/auth";
 
 export function Footer() {
+  const { isAdmin, user } = useIsAdmin();
   return (
     <footer className="mt-24 border-t border-border bg-graphite text-graphite-foreground">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-4 md:px-8">
@@ -33,7 +36,18 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10 py-6 text-center text-xs text-graphite-foreground/50">
-        © {new Date().getFullYear()} Gonza3DLab. Todos os direitos reservados.
+        <div>© {new Date().getFullYear()} Gonza3DLab. Todos os direitos reservados.</div>
+        <div className="mt-2">
+          {isAdmin ? (
+            <Link to="/admin" className="inline-flex items-center gap-1 hover:text-primary">
+              <Lock className="h-3 w-3" /> Painel admin
+            </Link>
+          ) : !user ? (
+            <Link to="/auth" className="inline-flex items-center gap-1 hover:text-primary">
+              <Lock className="h-3 w-3" /> Acesso admin
+            </Link>
+          ) : null}
+        </div>
       </div>
     </footer>
   );
