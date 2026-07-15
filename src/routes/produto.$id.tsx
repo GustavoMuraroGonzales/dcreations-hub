@@ -64,7 +64,7 @@ export const Route = createFileRoute("/produto/$id")({
 });
 
 function ProdutoPage() {
-  const product = Route.useLoaderData();
+  const product = Route.useLoaderData() as ProductDetail;
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const heroImg = selectedImage ?? product.cover_image_url ?? product.images[0]?.image_url ?? null;
