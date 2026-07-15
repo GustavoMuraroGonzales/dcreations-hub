@@ -65,14 +65,14 @@ const steps: Step[] = [
     title: "Impressão 3D",
     desc: "Sua peça entra na fila de impressão com controle de qualidade.",
     icon: Printer,
-    details: ["FDM / Resina", "Camadas calibradas", "Acompanhamento do lote"],
+    details: ["FDM", "Camadas calibradas", "Acompanhamento do lote"],
   },
   {
     n: "05",
     title: "Acabamento",
     desc: "Removemos suportes, lixamos e finalizamos conforme a peça pede.",
     icon: Sparkles,
-    details: ["Pós-cura (resina)", "Lixamento", "Pintura opcional"],
+    details: ["Lixamento", "Pintura opcional"],
   },
   {
     n: "06",
