@@ -104,7 +104,11 @@ function Home() {
         </section>
       )}
 
+      {/* Galeria de peças reais */}
+      <RealPiecesGallery />
+
       {/* CTA */}
+
       <section className="mx-auto max-w-7xl px-4 py-24 md:px-8">
         <div className="rounded-2xl bg-graphite p-10 text-center text-graphite-foreground md:p-16">
           <h2 className="font-display text-3xl font-bold md:text-4xl">
