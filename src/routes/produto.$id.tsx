@@ -1,14 +1,14 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { Layout } from "@/components/Layout";
-import { fetchProductBySlug } from "@/lib/products";
+import { fetchProductBySlug, type ProductDetail } from "@/lib/products";
 import { whatsappLink } from "@/lib/contact";
 import { ArrowLeft, MessageCircle } from "lucide-react";
 
 const SITE_URL = "https://dcreations-hub.lovable.app";
 
 export const Route = createFileRoute("/produto/$id")({
-  loader: async ({ params }) => {
+  loader: async ({ params }): Promise<ProductDetail> => {
     const product = await fetchProductBySlug(params.id);
     if (!product) throw notFound();
     return product;
