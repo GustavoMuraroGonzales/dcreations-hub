@@ -22,7 +22,7 @@ function Home() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-graphite text-graphite-foreground">
         <div className="absolute inset-0 opacity-40">
-          <img src={heroImg} alt="" width={1600} height={1200} className="h-full w-full object-cover" />
+          <img src={heroImg} alt="" width={1600} height={1200} fetchPriority="high" decoding="async" className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-graphite via-graphite/80 to-transparent" />
         </div>
         <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-24 md:grid-cols-2 md:px-8 md:py-32">

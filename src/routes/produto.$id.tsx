@@ -1,49 +1,71 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { Layout } from "@/components/Layout";
 import { fetchProductBySlug } from "@/lib/products";
 import { whatsappLink } from "@/lib/contact";
 import { ArrowLeft, MessageCircle } from "lucide-react";
 
+const SITE_URL = "https://dcreations-hub.lovable.app";
+
 export const Route = createFileRoute("/produto/$id")({
-  head: ({ params }) => ({
-    meta: [
-      { title: `Produto — Gonza3DLab` },
-      { name: "description", content: "Detalhes do produto." },
-      { property: "og:title", content: `Produto — Gonza3DLab` },
-    ],
-  }),
+  loader: async ({ params }) => {
+    const product = await fetchProductBySlug(params.id);
+    if (!product) throw notFound();
+    return product;
+  },
+  head: ({ params, loaderData }) => {
+    const url = `${SITE_URL}/produto/${params.id}`;
+    if (!loaderData) {
+      return {
+        meta: [
+          { title: "Produto não encontrado — Gonza3DLab" },
+          { name: "robots", content: "noindex" },
+        ],
+      };
+    }
+    const name = loaderData.name;
+    const rawDesc = (loaderData.description ?? "").replace(/\s+/g, " ").trim();
+    const fallback = `${name} — impressão 3D sob demanda pela Gonza3DLab. Peça seu orçamento.`;
+    let desc = rawDesc.length >= 50 ? rawDesc : `${rawDesc ? rawDesc + " " : ""}${fallback}`.trim();
+    if (desc.length > 160) desc = desc.slice(0, 157).trimEnd() + "…";
+    const title = `${name} — Gonza3DLab`;
+    const image = loaderData.cover_image_url ?? loaderData.images[0]?.image_url ?? null;
+    const meta: Array<Record<string, string>> = [
+      { title },
+      { name: "description", content: desc },
+      { property: "og:title", content: title },
+      { property: "og:description", content: desc },
+      { property: "og:type", content: "product" },
+      { property: "og:url", content: url },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: desc },
+    ];
+    if (image) {
+      meta.push({ property: "og:image", content: image });
+      meta.push({ name: "twitter:image", content: image });
+    }
+    return {
+      meta,
+      links: [{ rel: "canonical", href: url }],
+    };
+  },
+  notFoundComponent: () => (
+    <Layout>
+      <div className="mx-auto max-w-3xl px-4 py-24 text-center">
+        <h1 className="font-display text-3xl font-bold">Produto não encontrado</h1>
+        <Link to="/catalogo" className="mt-6 inline-flex text-primary hover:underline">
+          ← Voltar ao catálogo
+        </Link>
+      </div>
+    </Layout>
+  ),
   component: ProdutoPage,
 });
 
 function ProdutoPage() {
-  const { id: slug } = Route.useParams();
-  const { data: product, isLoading } = useQuery({
-    queryKey: ["product", slug],
-    queryFn: () => fetchProductBySlug(slug),
-  });
+  const product = Route.useLoaderData();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
-  if (isLoading) {
-    return (
-      <Layout>
-        <div className="mx-auto max-w-3xl px-4 py-24 text-center text-muted-foreground">Carregando...</div>
-      </Layout>
-    );
-  }
-  if (!product) {
-    return (
-      <Layout>
-        <div className="mx-auto max-w-3xl px-4 py-24 text-center">
-          <h1 className="font-display text-3xl font-bold">Produto não encontrado</h1>
-          <Link to="/catalogo" className="mt-6 inline-flex text-primary hover:underline">
-            ← Voltar ao catálogo
-          </Link>
-        </div>
-      </Layout>
-    );
-  }
 
   const heroImg = selectedImage ?? product.cover_image_url ?? product.images[0]?.image_url ?? null;
   const msg = `Olá! Tenho interesse no produto "${product.name}" do site.`;
@@ -68,10 +90,11 @@ function ProdutoPage() {
             </div>
             {product.images.length > 1 && (
               <div className="mt-3 grid grid-cols-5 gap-2">
-                {product.images.map((img) => (
+                {product.images.map((img, i) => (
                   <button
                     key={img.id}
                     onClick={() => setSelectedImage(img.image_url)}
+                    aria-label={`Ver imagem ${i + 1} de ${product.name}`}
                     className={`aspect-square overflow-hidden rounded-md border-2 transition ${
                       heroImg === img.image_url ? "border-primary" : "border-transparent hover:border-border"
                     }`}

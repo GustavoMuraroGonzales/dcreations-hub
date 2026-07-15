@@ -1,0 +1,12 @@
+# Gonza3DLab
+
+> Impressão 3D sob demanda em São Paulo: miniaturas, peças técnicas, personalizados e protótipos.
+
+## Pages
+
+- [Início](/): Visão geral dos serviços e destaques do catálogo.
+- [Catálogo](/catalogo): Peças prontas para produção, filtráveis por categoria.
+- [Serviços](/servicos): Linhas de trabalho e materiais oferecidos.
+- [Como funciona](/como-funciona): Fluxo do arquivo STL até a peça pronta.
+- [Sobre](/sobre): Quem somos e nosso jeito de trabalhar.
+- [Contato](/contato): Formulário e canais de atendimento (WhatsApp, e-mail, Instagram).
