@@ -2,7 +2,7 @@ import { Link, useNavigate, Outlet } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { useIsAdmin } from "@/lib/auth";
 import { supabase } from "@/integrations/supabase/client";
-import { LayoutDashboard, Package, Tag, LogOut, ExternalLink } from "lucide-react";
+import { LayoutDashboard, Package, Tag, LogOut, ExternalLink, Shield } from "lucide-react";
 import { toast } from "sonner";
 
 export function AdminLayout() {
@@ -51,6 +51,7 @@ export function AdminLayout() {
           <NavItem to="/admin" icon={LayoutDashboard} label="Início" exact />
           <NavItem to="/admin/produtos" icon={Package} label="Produtos" />
           <NavItem to="/admin/categorias" icon={Tag} label="Categorias" />
+          <NavItem to="/admin/auditoria" icon={Shield} label="Auditoria" />
         </nav>
         <div className="absolute bottom-0 left-0 right-0 space-y-1 border-t border-border p-2 text-sm">
           <Link to="/" className="flex items-center gap-2 rounded-md px-3 py-2 text-muted-foreground hover:bg-muted">
