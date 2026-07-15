@@ -89,10 +89,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         property: "og:description",
         content:
-          "Miniaturas, peças técnicas, personalizados e protótipos em impressão 3D com precisão e qualidade.",
+          "Miniaturas, peças técnicas, personalizados e protótipos em impressão 3D com precisão e qualidade. Faça seu orçamento.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Gonza3DLab — Impressão 3D sob demanda" },
+      { name: "twitter:description", content: "Miniaturas, peças técnicas, personalizados e protótipos em impressão 3D com precisão e qualidade. Faça seu orçamento." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/839f01ee-60bb-466b-a13e-35208d36e8b2/id-preview-4eb186f9--efee96d1-9802-4e0c-b5e7-cc3c6ea47a4d.lovable.app-1784077697604.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/839f01ee-60bb-466b-a13e-35208d36e8b2/id-preview-4eb186f9--efee96d1-9802-4e0c-b5e7-cc3c6ea47a4d.lovable.app-1784077697604.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
