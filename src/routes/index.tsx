@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Layout } from "@/components/Layout";
 import { ProductCard } from "@/components/ProductCard";
+import { RealPiecesGallery } from "@/components/RealPiecesGallery";
 import { fetchProducts } from "@/lib/products";
 import { ArrowRight, Boxes, Cog, Sparkles, Zap } from "lucide-react";
 import heroImg from "@/assets/hero-printer.jpg";
