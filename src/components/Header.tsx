@@ -36,12 +36,6 @@ export function Header() {
               {item.label}
             </Link>
           ))}
-          <Link
-            to="/contato"
-            className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:opacity-90 hover:shadow-[var(--shadow-glow)]"
-          >
-            Fazer orçamento
-          </Link>
         </nav>
 
         <button
