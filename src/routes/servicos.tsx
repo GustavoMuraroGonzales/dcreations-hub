@@ -18,8 +18,8 @@ const services = [
   {
     icon: Boxes,
     title: "Miniaturas",
-    desc: "Miniaturas em alta resolução para RPG, coleção, dioramas e maquetes arquitetônicas. Impressão em resina 8K com pintura opcional.",
-    bullets: ["Resina 8K de alta definição", "Escala configurável", "Pintura sob pedido"],
+    desc: "Miniaturas para RPG, coleção, dioramas e maquetes arquitetônicas. Impressão FDM com alta qualidade de camada e pintura opcional.",
+    bullets: ["FDM com camadas finas", "Escala configurável", "Pintura sob pedido"],
   },
   {
     icon: Cog,
