@@ -113,21 +113,26 @@ function Home() {
       {/* CTA */}
 
       <section className="mx-auto max-w-7xl px-4 py-24 md:px-8">
-        <div className="rounded-2xl bg-graphite p-10 text-center text-graphite-foreground md:p-16">
-          <h2 className="font-display text-3xl font-bold md:text-4xl">
-            Tem uma ideia? A gente <span className="text-primary">imprime</span>.
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-graphite-foreground/70">
-            Envie seu arquivo STL ou descreva o que precisa. Respondemos com prazo e orçamento em até 24h.
-          </p>
-          <Link
-            to="/contato"
-            className="mt-8 inline-flex items-center gap-2 rounded-md bg-primary px-8 py-3 font-semibold text-primary-foreground transition hover:opacity-90"
-          >
-            Começar agora <ArrowRight className="h-4 w-4" />
-          </Link>
+        <div className="relative overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/10 via-background to-secondary/10 p-10 text-center md:p-16">
+          <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-primary/20 blur-3xl" aria-hidden />
+          <div className="absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-secondary/20 blur-3xl" aria-hidden />
+          <div className="relative">
+            <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl">
+              Tem uma ideia? A gente <span className="text-primary">imprime</span>.
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
+              Envie seu arquivo STL ou descreva o que precisa. Respondemos com prazo e orçamento em até 24h.
+            </p>
+            <Link
+              to="/contato"
+              className="mt-8 inline-flex items-center gap-2 rounded-md bg-primary px-8 py-3 font-semibold text-primary-foreground transition hover:opacity-90"
+            >
+              Começar agora <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </section>
+
     </Layout>
   );
 }
