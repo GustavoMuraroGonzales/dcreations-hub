@@ -107,10 +107,12 @@ function Home() {
 
       {/* Destaques do catálogo */}
       {featured.length > 0 && (
-        <section className="bg-muted/50 py-20">
-          <div className="mx-auto max-w-7xl px-4 md:px-8">
+        <section className="relative overflow-hidden bg-muted/40 py-20">
+          <div className="absolute inset-0 bg-dots opacity-50" aria-hidden />
+          <div className="relative mx-auto max-w-7xl px-4 md:px-8">
             <div className="mb-12 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
               <div>
+                <span className="mb-3 inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">Catálogo</span>
                 <h2 className="font-display text-3xl font-bold md:text-4xl">Em destaque</h2>
                 <p className="mt-2 text-muted-foreground">Peças recém-saídas da impressora.</p>
               </div>
