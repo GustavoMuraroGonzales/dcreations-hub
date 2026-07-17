@@ -1,7 +1,12 @@
 import { useEffect } from "react";
 import { X, MessageCircle, ExternalLink } from "lucide-react";
 import { whatsappLink } from "@/lib/contact";
-import type { ProductDetail } from "@/lib/products";
+import type { ProductWithCategory } from "@/lib/products";
+
+type BuyableProduct = Pick<
+  ProductWithCategory,
+  "name" | "mercado_livre_url" | "shopee_url" | "elo7_url" | "amazon_url" | "other_store_url" | "other_store_label"
+>;
 
 type Store = {
   key: string;
@@ -10,7 +15,7 @@ type Store = {
   color: string; // tailwind bg class
 };
 
-function buildStores(product: ProductDetail): Store[] {
+function buildStores(product: BuyableProduct): Store[] {
   const list: Store[] = [];
   if (product.mercado_livre_url)
     list.push({ key: "ml", label: "Mercado Livre", url: product.mercado_livre_url, color: "bg-[#FFE600] text-black hover:brightness-95" });
@@ -30,7 +35,7 @@ function buildStores(product: ProductDetail): Store[] {
   return list;
 }
 
-export function BuyModal({ product, open, onClose }: { product: ProductDetail; open: boolean; onClose: () => void }) {
+export function BuyModal({ product, open, onClose }: { product: BuyableProduct; open: boolean; onClose: () => void }) {
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
