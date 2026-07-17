@@ -70,9 +70,9 @@ function Servicos() {
           ))}
         </div>
 
-        <div className="mt-16 rounded-2xl bg-graphite p-10 text-graphite-foreground md:p-14">
-          <h2 className="font-display text-3xl font-bold">Não achou o que precisa?</h2>
-          <p className="mt-3 max-w-xl text-graphite-foreground/70">
+        <div className="mt-16 rounded-2xl border border-secondary/30 bg-secondary/5 p-10 md:p-14">
+          <h2 className="font-display text-3xl font-bold text-foreground">Não achou o que precisa?</h2>
+          <p className="mt-3 max-w-xl text-muted-foreground">
             Se você tem um projeto diferente, fale com a gente. Praticamente qualquer peça em plástico até 25 × 25 × 25 cm é possível.
           </p>
           <Link
@@ -82,6 +82,7 @@ function Servicos() {
             Falar sobre meu projeto
           </Link>
         </div>
+
       </section>
     </Layout>
   );

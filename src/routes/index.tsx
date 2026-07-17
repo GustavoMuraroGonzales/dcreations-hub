@@ -20,20 +20,22 @@ function Home() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-graphite text-graphite-foreground">
-        <div className="absolute inset-0 opacity-40">
+      <section className="relative overflow-hidden bg-background">
+        <div className="absolute inset-0 opacity-20">
           <img src={heroImg} alt="" width={1600} height={1200} fetchPriority="high" decoding="async" className="h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-graphite via-graphite/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
         </div>
+        <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-primary/20 blur-3xl" aria-hidden />
+        <div className="absolute -bottom-24 left-1/3 h-72 w-72 rounded-full bg-secondary/20 blur-3xl" aria-hidden />
         <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-24 md:grid-cols-2 md:px-8 md:py-32">
           <div className="flex flex-col justify-center">
             <span className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
               <Zap className="h-3 w-3" /> Impressão 3D em São Paulo
             </span>
-            <h1 className="font-display text-5xl font-bold leading-tight md:text-6xl">
+            <h1 className="font-display text-5xl font-bold leading-tight text-foreground md:text-6xl">
               Do arquivo <span className="text-primary">à peça pronta</span> em dias.
             </h1>
-            <p className="mt-6 max-w-lg text-lg text-graphite-foreground/70">
+            <p className="mt-6 max-w-lg text-lg text-muted-foreground">
               Miniaturas detalhadas, peças técnicas resistentes, personalizados únicos e protótipos funcionais.
               Impressão 3D de qualidade para você ou sua empresa.
             </p>
@@ -46,7 +48,7 @@ function Home() {
               </Link>
               <Link
                 to="/contato"
-                className="inline-flex items-center gap-2 rounded-md border border-white/20 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
+                className="inline-flex items-center gap-2 rounded-md border border-secondary/40 bg-secondary/5 px-6 py-3 font-semibold text-secondary transition hover:bg-secondary/10"
               >
                 Fazer orçamento
               </Link>
@@ -54,6 +56,7 @@ function Home() {
           </div>
         </div>
       </section>
+
 
       {/* Serviços resumo */}
       <section className="mx-auto max-w-7xl px-4 py-20 md:px-8">
@@ -110,21 +113,26 @@ function Home() {
       {/* CTA */}
 
       <section className="mx-auto max-w-7xl px-4 py-24 md:px-8">
-        <div className="rounded-2xl bg-graphite p-10 text-center text-graphite-foreground md:p-16">
-          <h2 className="font-display text-3xl font-bold md:text-4xl">
-            Tem uma ideia? A gente <span className="text-primary">imprime</span>.
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-graphite-foreground/70">
-            Envie seu arquivo STL ou descreva o que precisa. Respondemos com prazo e orçamento em até 24h.
-          </p>
-          <Link
-            to="/contato"
-            className="mt-8 inline-flex items-center gap-2 rounded-md bg-primary px-8 py-3 font-semibold text-primary-foreground transition hover:opacity-90"
-          >
-            Começar agora <ArrowRight className="h-4 w-4" />
-          </Link>
+        <div className="relative overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/10 via-background to-secondary/10 p-10 text-center md:p-16">
+          <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-primary/20 blur-3xl" aria-hidden />
+          <div className="absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-secondary/20 blur-3xl" aria-hidden />
+          <div className="relative">
+            <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl">
+              Tem uma ideia? A gente <span className="text-primary">imprime</span>.
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
+              Envie seu arquivo STL ou descreva o que precisa. Respondemos com prazo e orçamento em até 24h.
+            </p>
+            <Link
+              to="/contato"
+              className="mt-8 inline-flex items-center gap-2 rounded-md bg-primary px-8 py-3 font-semibold text-primary-foreground transition hover:opacity-90"
+            >
+              Começar agora <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </section>
+
     </Layout>
   );
 }
