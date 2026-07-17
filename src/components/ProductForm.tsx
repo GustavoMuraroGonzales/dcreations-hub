@@ -34,6 +34,12 @@ export function ProductForm({ productId }: Props) {
     cover_image_url: "" as string,
     is_active: true,
     sort_order: 0,
+    mercado_livre_url: "",
+    shopee_url: "",
+    elo7_url: "",
+    amazon_url: "",
+    other_store_url: "",
+    other_store_label: "",
   });
   const [images, setImages] = useState<ProductDetail["images"]>([]);
   const [uploading, setUploading] = useState(false);
@@ -52,6 +58,12 @@ export function ProductForm({ productId }: Props) {
         cover_image_url: existing.cover_image_url ?? "",
         is_active: existing.is_active,
         sort_order: existing.sort_order,
+        mercado_livre_url: existing.mercado_livre_url ?? "",
+        shopee_url: existing.shopee_url ?? "",
+        elo7_url: existing.elo7_url ?? "",
+        amazon_url: existing.amazon_url ?? "",
+        other_store_url: existing.other_store_url ?? "",
+        other_store_label: existing.other_store_label ?? "",
       });
       setImages(existing.images);
       setSlugTouched(true);
@@ -71,6 +83,12 @@ export function ProductForm({ productId }: Props) {
         cover_image_url: form.cover_image_url || null,
         is_active: form.is_active,
         sort_order: form.sort_order,
+        mercado_livre_url: form.mercado_livre_url.trim() || null,
+        shopee_url: form.shopee_url.trim() || null,
+        elo7_url: form.elo7_url.trim() || null,
+        amazon_url: form.amazon_url.trim() || null,
+        other_store_url: form.other_store_url.trim() || null,
+        other_store_label: form.other_store_label.trim() || null,
       };
       if (isEdit && productId) {
         const { error } = await supabase.from("products").update(payload).eq("id", productId);
@@ -324,6 +342,68 @@ export function ProductForm({ productId }: Props) {
             })}
           </div>
         )}
+      </div>
+
+      <div className="rounded-lg border border-border p-4">
+        <h3 className="font-display text-lg font-semibold">Links de compra (marketplaces)</h3>
+        <p className="mt-1 text-xs text-muted-foreground">
+          Cole a URL do produto em cada plataforma. Só os links preenchidos aparecerão no pop-up "Onde comprar".
+        </p>
+        <div className="mt-4 grid gap-4 md:grid-cols-2">
+          <Field label="Mercado Livre">
+            <input
+              type="url"
+              value={form.mercado_livre_url}
+              onChange={(e) => setForm((f) => ({ ...f, mercado_livre_url: e.target.value }))}
+              className={input}
+              placeholder="https://produto.mercadolivre.com.br/..."
+            />
+          </Field>
+          <Field label="Shopee">
+            <input
+              type="url"
+              value={form.shopee_url}
+              onChange={(e) => setForm((f) => ({ ...f, shopee_url: e.target.value }))}
+              className={input}
+              placeholder="https://shopee.com.br/..."
+            />
+          </Field>
+          <Field label="Elo7">
+            <input
+              type="url"
+              value={form.elo7_url}
+              onChange={(e) => setForm((f) => ({ ...f, elo7_url: e.target.value }))}
+              className={input}
+              placeholder="https://www.elo7.com.br/..."
+            />
+          </Field>
+          <Field label="Amazon">
+            <input
+              type="url"
+              value={form.amazon_url}
+              onChange={(e) => setForm((f) => ({ ...f, amazon_url: e.target.value }))}
+              className={input}
+              placeholder="https://www.amazon.com.br/..."
+            />
+          </Field>
+          <Field label="Outra loja — nome">
+            <input
+              value={form.other_store_label}
+              onChange={(e) => setForm((f) => ({ ...f, other_store_label: e.target.value }))}
+              className={input}
+              placeholder="Ex.: Minha loja"
+            />
+          </Field>
+          <Field label="Outra loja — URL">
+            <input
+              type="url"
+              value={form.other_store_url}
+              onChange={(e) => setForm((f) => ({ ...f, other_store_url: e.target.value }))}
+              className={input}
+              placeholder="https://..."
+            />
+          </Field>
+        </div>
       </div>
 
       <div className="flex items-center justify-between border-t border-border pt-6">

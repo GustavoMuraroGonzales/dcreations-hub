@@ -111,45 +111,63 @@ export type Database = {
       }
       products: {
         Row: {
+          amazon_url: string | null
           category_id: string | null
           cover_image_url: string | null
           created_at: string
           description: string
+          elo7_url: string | null
           id: string
           is_active: boolean
           material: string
+          mercado_livre_url: string | null
           name: string
+          other_store_label: string | null
+          other_store_url: string | null
           price: number | null
+          shopee_url: string | null
           short_description: string
           slug: string
           sort_order: number
           updated_at: string
         }
         Insert: {
+          amazon_url?: string | null
           category_id?: string | null
           cover_image_url?: string | null
           created_at?: string
           description?: string
+          elo7_url?: string | null
           id?: string
           is_active?: boolean
           material?: string
+          mercado_livre_url?: string | null
           name: string
+          other_store_label?: string | null
+          other_store_url?: string | null
           price?: number | null
+          shopee_url?: string | null
           short_description?: string
           slug: string
           sort_order?: number
           updated_at?: string
         }
         Update: {
+          amazon_url?: string | null
           category_id?: string | null
           cover_image_url?: string | null
           created_at?: string
           description?: string
+          elo7_url?: string | null
           id?: string
           is_active?: boolean
           material?: string
+          mercado_livre_url?: string | null
           name?: string
+          other_store_label?: string | null
+          other_store_url?: string | null
           price?: number | null
+          shopee_url?: string | null
           short_description?: string
           slug?: string
           sort_order?: number
