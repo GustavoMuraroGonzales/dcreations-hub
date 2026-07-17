@@ -47,6 +47,10 @@
 
   --shadow-glow: 0 20px 60px -20px color-mix(in oklab, var(--primary) 45%, transparent);
   --shadow-elegant: 0 10px 40px -12px color-mix(in oklab, var(--graphite) 40%, transparent);
+  --shadow-soft: 0 4px 20px -8px color-mix(in oklab, var(--graphite) 25%, transparent);
+  --shadow-blue: 0 20px 60px -20px color-mix(in oklab, var(--secondary) 45%, transparent);
+  --gradient-primary: linear-gradient(135deg, oklch(0.72 0.2 45), oklch(0.65 0.22 30));
+  --gradient-hero: linear-gradient(135deg, oklch(0.98 0.01 60) 0%, oklch(1 0 0) 40%, oklch(0.97 0.015 250) 100%);
 }
 
 :root {
