@@ -71,9 +71,10 @@ function Home() {
 
 
       {/* Serviços resumo */}
-      <section className="mx-auto max-w-7xl px-4 py-20 md:px-8">
+      <section className="relative mx-auto max-w-7xl px-4 py-20 md:px-8">
         <div className="mb-12 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
           <div>
+            <span className="mb-3 inline-block rounded-full bg-secondary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-secondary">Serviços</span>
             <h2 className="font-display text-3xl font-bold md:text-4xl">O que fazemos</h2>
             <p className="mt-2 text-muted-foreground">Quatro linhas de trabalho, uma qualidade só.</p>
           </div>
@@ -83,19 +84,26 @@ function Home() {
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {[
-            { icon: Boxes, title: "Miniaturas", desc: "Para RPG, coleção e maquetes." },
-            { icon: Cog, title: "Peças técnicas", desc: "Suportes, engrenagens, reposição." },
-            { icon: Sparkles, title: "Personalizados", desc: "Presentes, brindes e ideias únicas." },
-            { icon: Zap, title: "Protótipos", desc: "Do STL à peça funcional." },
+            { icon: Boxes, title: "Miniaturas", desc: "Para RPG, coleção e maquetes.", accent: "primary" },
+            { icon: Cog, title: "Peças técnicas", desc: "Suportes, engrenagens, reposição.", accent: "secondary" },
+            { icon: Sparkles, title: "Personalizados", desc: "Presentes, brindes e ideias únicas.", accent: "primary" },
+            { icon: Zap, title: "Protótipos", desc: "Do STL à peça funcional.", accent: "secondary" },
           ].map((s) => (
-            <div key={s.title} className="rounded-xl border border-border p-6 transition hover:border-primary/50">
-              <s.icon className="h-8 w-8 text-primary" />
-              <h3 className="mt-4 font-display text-xl font-semibold">{s.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
+            <div
+              key={s.title}
+              className="group relative overflow-hidden rounded-xl border border-border bg-card p-6 shadow-[var(--shadow-soft)] transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-[var(--shadow-glow)]"
+            >
+              <div className={`absolute -right-8 -top-8 h-24 w-24 rounded-full ${s.accent === "primary" ? "bg-primary/10" : "bg-secondary/10"} blur-2xl transition-opacity group-hover:opacity-100`} aria-hidden />
+              <div className={`relative inline-flex h-12 w-12 items-center justify-center rounded-lg ${s.accent === "primary" ? "bg-primary/10 text-primary" : "bg-secondary/10 text-secondary"}`}>
+                <s.icon className="h-6 w-6" />
+              </div>
+              <h3 className="relative mt-4 font-display text-xl font-semibold">{s.title}</h3>
+              <p className="relative mt-2 text-sm text-muted-foreground">{s.desc}</p>
             </div>
           ))}
         </div>
       </section>
+
 
       {/* Destaques do catálogo */}
       {featured.length > 0 && (
