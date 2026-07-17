@@ -34,6 +34,12 @@ export function ProductForm({ productId }: Props) {
     cover_image_url: "" as string,
     is_active: true,
     sort_order: 0,
+    mercado_livre_url: "",
+    shopee_url: "",
+    elo7_url: "",
+    amazon_url: "",
+    other_store_url: "",
+    other_store_label: "",
   });
   const [images, setImages] = useState<ProductDetail["images"]>([]);
   const [uploading, setUploading] = useState(false);
@@ -52,6 +58,12 @@ export function ProductForm({ productId }: Props) {
         cover_image_url: existing.cover_image_url ?? "",
         is_active: existing.is_active,
         sort_order: existing.sort_order,
+        mercado_livre_url: existing.mercado_livre_url ?? "",
+        shopee_url: existing.shopee_url ?? "",
+        elo7_url: existing.elo7_url ?? "",
+        amazon_url: existing.amazon_url ?? "",
+        other_store_url: existing.other_store_url ?? "",
+        other_store_label: existing.other_store_label ?? "",
       });
       setImages(existing.images);
       setSlugTouched(true);
@@ -71,6 +83,12 @@ export function ProductForm({ productId }: Props) {
         cover_image_url: form.cover_image_url || null,
         is_active: form.is_active,
         sort_order: form.sort_order,
+        mercado_livre_url: form.mercado_livre_url.trim() || null,
+        shopee_url: form.shopee_url.trim() || null,
+        elo7_url: form.elo7_url.trim() || null,
+        amazon_url: form.amazon_url.trim() || null,
+        other_store_url: form.other_store_url.trim() || null,
+        other_store_label: form.other_store_label.trim() || null,
       };
       if (isEdit && productId) {
         const { error } = await supabase.from("products").update(payload).eq("id", productId);
