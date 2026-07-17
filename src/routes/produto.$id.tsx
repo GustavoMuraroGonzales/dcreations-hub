@@ -1,9 +1,9 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { Layout } from "@/components/Layout";
+import { BuyModal } from "@/components/BuyModal";
 import { fetchProductBySlug, type ProductDetail } from "@/lib/products";
-import { whatsappLink } from "@/lib/contact";
-import { ArrowLeft, MessageCircle } from "lucide-react";
+import { ArrowLeft, ShoppingBag } from "lucide-react";
 
 const SITE_URL = "https://dcreations-hub.lovable.app";
 
@@ -66,9 +66,9 @@ export const Route = createFileRoute("/produto/$id")({
 function ProdutoPage() {
   const product = Route.useLoaderData() as ProductDetail;
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [buyOpen, setBuyOpen] = useState(false);
 
   const heroImg = selectedImage ?? product.cover_image_url ?? product.images[0]?.image_url ?? null;
-  const msg = `Olá! Tenho interesse no produto "${product.name}" do site.`;
 
   return (
     <Layout>
@@ -131,14 +131,13 @@ function ProdutoPage() {
             </dl>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a
-                href={whatsappLink(msg)}
-                target="_blank"
-                rel="noreferrer"
+              <button
+                type="button"
+                onClick={() => setBuyOpen(true)}
                 className="inline-flex flex-1 items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground shadow-[var(--shadow-glow)] transition hover:opacity-90"
               >
-                <MessageCircle className="h-5 w-5" /> Quero este produto
-              </a>
+                <ShoppingBag className="h-5 w-5" /> Comprar
+              </button>
               <Link
                 to="/contato"
                 className="inline-flex items-center justify-center rounded-md border border-border px-6 py-3 font-semibold transition hover:border-primary/50"
@@ -148,11 +147,13 @@ function ProdutoPage() {
             </div>
 
             <p className="mt-6 text-xs text-muted-foreground">
-              Envio para todo o Brasil. Prazo de produção informado no orçamento.
+              Compre pelo marketplace de sua preferência. Envio e pagamento gerenciados pela plataforma escolhida.
             </p>
           </div>
         </div>
       </section>
+
+      <BuyModal product={product} open={buyOpen} onClose={() => setBuyOpen(false)} />
     </Layout>
   );
 }
