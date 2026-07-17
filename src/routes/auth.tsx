@@ -20,14 +20,14 @@ export const Route = createFileRoute("/auth")({
 function AuthPage() {
   const navigate = useNavigate();
   const { session, loading } = useSession();
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [mode, setMode] = useState<"signin" | "signup" | "forgot">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    if (!loading && session) navigate({ to: "/admin" });
-  }, [session, loading, navigate]);
+    if (!loading && session && mode !== "forgot") navigate({ to: "/admin" });
+  }, [session, loading, navigate, mode]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -41,6 +41,13 @@ function AuthPage() {
         });
         if (error) throw error;
         toast.success("Conta criada! Você já pode entrar.");
+      } else if (mode === "forgot") {
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: `${window.location.origin}/reset-password`,
+        });
+        if (error) throw error;
+        toast.success("E-mail de recuperação enviado! Verifique sua caixa de entrada.");
+        setMode("signin");
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
@@ -68,14 +75,17 @@ function AuthPage() {
     navigate({ to: "/admin" });
   }
 
+  const title =
+    mode === "signin" ? "Entrar" : mode === "signup" ? "Criar conta" : "Recuperar senha";
+
   return (
     <Layout>
       <section className="mx-auto max-w-md px-4 py-20">
-        <h1 className="font-display text-3xl font-bold">
-          {mode === "signin" ? "Entrar" : "Criar conta"}
-        </h1>
+        <h1 className="font-display text-3xl font-bold">{title}</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Acesso restrito à área administrativa.
+          {mode === "forgot"
+            ? "Informe seu e-mail e enviaremos um link para redefinir sua senha."
+            : "Acesso restrito à área administrativa."}
         </p>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-4">
@@ -89,54 +99,83 @@ function AuthPage() {
               className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2"
             />
           </div>
-          <div>
-            <label className="block text-sm font-medium">Senha</label>
-            <input
-              type="password"
-              required
-              minLength={6}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2"
-            />
-          </div>
+          {mode !== "forgot" && (
+            <div>
+              <div className="flex items-center justify-between">
+                <label className="block text-sm font-medium">Senha</label>
+                {mode === "signin" && (
+                  <button
+                    type="button"
+                    className="text-xs text-primary hover:underline"
+                    onClick={() => setMode("forgot")}
+                  >
+                    Esqueci minha senha
+                  </button>
+                )}
+              </div>
+              <input
+                type="password"
+                required
+                minLength={6}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2"
+              />
+            </div>
+          )}
           <button
             type="submit"
             disabled={busy}
             className="w-full rounded-md bg-primary px-4 py-2 font-semibold text-primary-foreground disabled:opacity-60"
           >
-            {busy ? "Aguarde..." : mode === "signin" ? "Entrar" : "Criar conta"}
+            {busy
+              ? "Aguarde..."
+              : mode === "signin"
+              ? "Entrar"
+              : mode === "signup"
+              ? "Criar conta"
+              : "Enviar link de recuperação"}
           </button>
         </form>
 
-        <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
-          <div className="h-px flex-1 bg-border" /> ou <div className="h-px flex-1 bg-border" />
-        </div>
+        {mode !== "forgot" && (
+          <>
+            <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
+              <div className="h-px flex-1 bg-border" /> ou <div className="h-px flex-1 bg-border" />
+            </div>
 
-        <button
-          type="button"
-          onClick={handleGoogle}
-          disabled={busy}
-          className="w-full rounded-md border border-border bg-background px-4 py-2 font-medium hover:border-primary/40"
-        >
-          Continuar com Google
-        </button>
+            <button
+              type="button"
+              onClick={handleGoogle}
+              disabled={busy}
+              className="w-full rounded-md border border-border bg-background px-4 py-2 font-medium hover:border-primary/40"
+            >
+              Continuar com Google
+            </button>
+          </>
+        )}
 
         <p className="mt-6 text-center text-sm text-muted-foreground">
-          {mode === "signin" ? (
+          {mode === "signin" && (
             <>
               Não tem conta?{" "}
               <button className="text-primary hover:underline" onClick={() => setMode("signup")}>
                 Criar conta
               </button>
             </>
-          ) : (
+          )}
+          {mode === "signup" && (
             <>
               Já tem conta?{" "}
               <button className="text-primary hover:underline" onClick={() => setMode("signin")}>
                 Entrar
               </button>
             </>
+          )}
+          {mode === "forgot" && (
+            <button className="text-primary hover:underline" onClick={() => setMode("signin")}>
+              ← Voltar ao login
+            </button>
           )}
         </p>
         <p className="mt-2 text-center text-xs text-muted-foreground">

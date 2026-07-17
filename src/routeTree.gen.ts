@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicosRouteImport } from './routes/servicos'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as ComoFuncionaRouteImport } from './routes/como-funciona'
 import { Route as CatalogoRouteImport } from './routes/catalogo'
@@ -39,6 +40,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ServicosRoute = ServicosRouteImport.update({
   id: '/servicos',
   path: '/servicos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContatoRoute = ContatoRouteImport.update({
@@ -114,6 +120,7 @@ export interface FileRoutesByFullPath {
   '/catalogo': typeof CatalogoRoute
   '/como-funciona': typeof ComoFuncionaRoute
   '/contato': typeof ContatoRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/servicos': typeof ServicosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
@@ -131,6 +138,7 @@ export interface FileRoutesByTo {
   '/catalogo': typeof CatalogoRoute
   '/como-funciona': typeof ComoFuncionaRoute
   '/contato': typeof ContatoRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/servicos': typeof ServicosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
@@ -150,6 +158,7 @@ export interface FileRoutesById {
   '/catalogo': typeof CatalogoRoute
   '/como-funciona': typeof ComoFuncionaRoute
   '/contato': typeof ContatoRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/servicos': typeof ServicosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
@@ -170,6 +179,7 @@ export interface FileRouteTypes {
     | '/catalogo'
     | '/como-funciona'
     | '/contato'
+    | '/reset-password'
     | '/servicos'
     | '/sitemap.xml'
     | '/sobre'
@@ -187,6 +197,7 @@ export interface FileRouteTypes {
     | '/catalogo'
     | '/como-funciona'
     | '/contato'
+    | '/reset-password'
     | '/servicos'
     | '/sitemap.xml'
     | '/sobre'
@@ -205,6 +216,7 @@ export interface FileRouteTypes {
     | '/catalogo'
     | '/como-funciona'
     | '/contato'
+    | '/reset-password'
     | '/servicos'
     | '/sitemap.xml'
     | '/sobre'
@@ -224,6 +236,7 @@ export interface RootRouteChildren {
   CatalogoRoute: typeof CatalogoRoute
   ComoFuncionaRoute: typeof ComoFuncionaRoute
   ContatoRoute: typeof ContatoRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   ServicosRoute: typeof ServicosRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreRoute: typeof SobreRoute
@@ -251,6 +264,13 @@ declare module '@tanstack/react-router' {
       path: '/servicos'
       fullPath: '/servicos'
       preLoaderRoute: typeof ServicosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contato': {
@@ -384,6 +404,7 @@ const rootRouteChildren: RootRouteChildren = {
   CatalogoRoute: CatalogoRoute,
   ComoFuncionaRoute: ComoFuncionaRoute,
   ContatoRoute: ContatoRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   ServicosRoute: ServicosRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreRoute: SobreRoute,
