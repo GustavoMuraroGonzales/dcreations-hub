@@ -16,7 +16,7 @@ const nav = [
 export function Header() {
   const [open, setOpen] = useState(false);
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 shadow-[0_1px_0_0_color-mix(in_oklab,var(--primary)_10%,transparent)] backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8">
         <Link to="/" className="flex items-center gap-2 font-display text-xl font-bold tracking-tight">
           <img src={mark.url} alt="Logo Gonza3DLab — impressão 3D" width={36} height={36} className="h-9 w-auto" />

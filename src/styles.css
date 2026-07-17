@@ -47,6 +47,10 @@
 
   --shadow-glow: 0 20px 60px -20px color-mix(in oklab, var(--primary) 45%, transparent);
   --shadow-elegant: 0 10px 40px -12px color-mix(in oklab, var(--graphite) 40%, transparent);
+  --shadow-soft: 0 4px 20px -8px color-mix(in oklab, var(--graphite) 25%, transparent);
+  --shadow-blue: 0 20px 60px -20px color-mix(in oklab, var(--secondary) 45%, transparent);
+  --gradient-primary: linear-gradient(135deg, oklch(0.72 0.2 45), oklch(0.65 0.22 30));
+  --gradient-hero: linear-gradient(135deg, oklch(0.98 0.01 60) 0%, oklch(1 0 0) 40%, oklch(0.97 0.015 250) 100%);
 }
 
 :root {
@@ -117,3 +121,32 @@
   }
   h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); letter-spacing: -0.02em; }
 }
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--graphite) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--graphite) 6%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+@utility bg-dots {
+  background-image: radial-gradient(color-mix(in oklab, var(--graphite) 14%, transparent) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+@utility text-gradient-primary {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@utility animate-float {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
