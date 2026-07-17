@@ -1,7 +1,12 @@
 import { useEffect } from "react";
 import { X, MessageCircle, ExternalLink } from "lucide-react";
 import { whatsappLink } from "@/lib/contact";
-import type { ProductDetail } from "@/lib/products";
+import type { ProductWithCategory } from "@/lib/products";
+
+type BuyableProduct = Pick<
+  ProductWithCategory,
+  "name" | "mercado_livre_url" | "shopee_url" | "elo7_url" | "amazon_url" | "other_store_url" | "other_store_label"
+>;
 
 type Store = {
   key: string;
