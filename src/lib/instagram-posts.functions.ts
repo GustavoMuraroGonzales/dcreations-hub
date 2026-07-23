@@ -37,7 +37,7 @@ export const listInstagramPostsAdmin = createServerFn({ method: "GET" })
       .order("sort_order", { ascending: true })
       .order("created_at", { ascending: false });
     if (error) throw error;
-    return (data ?? []) as InstagramPost[];
+    return ((data ?? []) as unknown[]) as InstagramPost[];
   });
 
 export const createInstagramPost = createServerFn({ method: "POST" })
