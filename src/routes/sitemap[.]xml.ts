@@ -1,5 +1,5 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { createFileRoute } from "@tanstack/react-start";
+import { createFileRoute } from "@tanstack/react-router";
+import type {} from "@tanstack/react-start";
 import { fetchProducts } from "@/lib/products";
 
 const BASE_URL = "https://dcreations-hub.lovable.app";
