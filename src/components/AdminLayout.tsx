@@ -2,7 +2,7 @@ import { Link, useNavigate, Outlet } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { useIsAdmin } from "@/lib/auth";
 import { supabase } from "@/integrations/supabase/client";
-import { LayoutDashboard, Package, Tag, LogOut, ExternalLink, Shield } from "lucide-react";
+import { LayoutDashboard, Package, Tag, LogOut, ExternalLink, Shield, Users } from "lucide-react";
 import { toast } from "sonner";
 
 export function AdminLayout() {
