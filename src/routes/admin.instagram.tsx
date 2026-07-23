@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { Instagram, Plus, Trash2, Edit2, Check, X, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -27,9 +28,14 @@ export const Route = createFileRoute("/admin/instagram")({
 
 function AdminInstagramPage() {
   const queryClient = useQueryClient();
+  const listFn = useServerFn(listInstagramPostsAdmin);
+  const createFn = useServerFn(createInstagramPost);
+  const updateFn = useServerFn(updateInstagramPost);
+  const deleteFn = useServerFn(deleteInstagramPost);
+
   const { data: posts = [], isLoading } = useQuery({
     queryKey: ["admin-instagram-posts"],
-    queryFn: () => listInstagramPostsAdmin({}),
+    queryFn: () => listFn(),
   });
 
   const [isCreating, setIsCreating] = useState(false);
@@ -42,7 +48,12 @@ function AdminInstagramPage() {
   });
 
   const createMutation = useMutation({
-    mutationFn: createInstagramPost,
+    mutationFn: (data: {
+      post_url: string;
+      caption?: string;
+      sort_order?: number;
+      is_active?: boolean;
+    }) => createFn({ data }),
     onSuccess: () => {
       toast.success("Post adicionado!");
       queryClient.invalidateQueries({ queryKey: ["admin-instagram-posts"] });
@@ -54,7 +65,13 @@ function AdminInstagramPage() {
   });
 
   const updateMutation = useMutation({
-    mutationFn: updateInstagramPost,
+    mutationFn: (data: {
+      id: string;
+      post_url: string;
+      caption?: string;
+      sort_order?: number;
+      is_active?: boolean;
+    }) => updateFn({ data }),
     onSuccess: () => {
       toast.success("Post atualizado!");
       queryClient.invalidateQueries({ queryKey: ["admin-instagram-posts"] });
@@ -66,7 +83,7 @@ function AdminInstagramPage() {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: deleteInstagramPost,
+    mutationFn: (data: { id: string }) => deleteFn({ data }),
     onSuccess: () => {
       toast.success("Post removido!");
       queryClient.invalidateQueries({ queryKey: ["admin-instagram-posts"] });
