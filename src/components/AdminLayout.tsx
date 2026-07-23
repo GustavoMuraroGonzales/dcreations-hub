@@ -51,6 +51,7 @@ export function AdminLayout() {
           <NavItem to="/admin" icon={LayoutDashboard} label="Início" exact />
           <NavItem to="/admin/produtos" icon={Package} label="Produtos" />
           <NavItem to="/admin/categorias" icon={Tag} label="Categorias" />
+          <NavItem to="/admin/usuarios" icon={Users} label="Usuários" />
           <NavItem to="/admin/auditoria" icon={Shield} label="Auditoria" />
         </nav>
         <div className="absolute bottom-0 left-0 right-0 space-y-1 border-t border-border p-2 text-sm">
