@@ -133,6 +133,9 @@ function Home() {
       {/* Galeria de peças reais */}
       <RealPiecesGallery />
 
+      {/* Feed do Instagram */}
+      <InstagramFeed />
+
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-4 py-24 md:px-8">
         <div className="relative overflow-hidden rounded-3xl border border-primary/20 bg-gradient-to-br from-primary/15 via-background to-secondary/15 p-10 text-center shadow-[var(--shadow-elegant)] md:p-16">
