@@ -30,7 +30,7 @@ function Contato() {
       <section className="mx-auto max-w-6xl px-4 py-20 md:px-8">
         <h1 className="font-display text-4xl font-bold md:text-5xl">Vamos conversar</h1>
         <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-          Envie seu arquivo STL, tire dúvidas ou peça um orçamento. Respondemos em até 24h.
+          Envie seu arquivo STL, tire dúvidas ou peça um orçamento. Respondemos em até 48h.
         </p>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_360px]">

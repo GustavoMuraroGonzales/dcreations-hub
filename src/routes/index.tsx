@@ -58,8 +58,8 @@ function Home() {
               </Link>
             </div>
             <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-primary" /> Entrega em até 7 dias</div>
-              <div className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-secondary" /> Orçamento em 24h</div>
+              <div className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-primary" /> Entrega rápida</div>
+              <div className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-secondary" /> Orçamento em até 48h</div>
               <div className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-graphite" /> +100 peças entregues</div>
             </div>
           </div>
@@ -143,10 +143,10 @@ function Home() {
               <Sparkles className="h-3 w-3" /> Pronto para começar?
             </span>
             <h2 className="font-display text-3xl font-bold text-foreground md:text-5xl">
-              Tem uma ideia? A gente <span className="text-gradient-primary">imprime</span>.
+              Tem uma ideia? Nós <span className="text-gradient-primary">imprimimos</span>!
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-              Envie seu arquivo STL ou descreva o que precisa. Respondemos com prazo e orçamento em até 24h.
+              Envie seu arquivo STL ou descreva o que precisa. Respondemos com prazo e orçamento em até 48h.
             </p>
             <Link
               to="/contato"
