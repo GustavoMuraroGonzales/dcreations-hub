@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Layout } from "@/components/Layout";
 import { ProductCard } from "@/components/ProductCard";
 import { RealPiecesGallery } from "@/components/RealPiecesGallery";
+import { InstagramFeed } from "@/components/InstagramFeed";
 import { fetchProducts } from "@/lib/products";
 import { ArrowRight, Boxes, Cog, Sparkles, Zap } from "lucide-react";
 import heroImg from "@/assets/hero-printer.jpg";
@@ -131,6 +132,9 @@ function Home() {
 
       {/* Galeria de peças reais */}
       <RealPiecesGallery />
+
+      {/* Feed do Instagram */}
+      <InstagramFeed />
 
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-4 py-24 md:px-8">
