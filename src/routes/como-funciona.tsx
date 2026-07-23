@@ -14,13 +14,13 @@ import type { LucideIcon } from "lucide-react";
 export const Route = createFileRoute("/como-funciona")({
   head: () => ({
     meta: [
-      { title: "Como funciona — Fluxo de trabalho | Gonza3DLab" },
+      { title: "Como Trabalhamos — Fluxo de trabalho | Gonza3DLab" },
       {
         name: "description",
         content:
           "Do primeiro contato à entrega: veja o mapa mental do fluxo de trabalho da Gonza3DLab para impressão 3D sob demanda.",
       },
-      { property: "og:title", content: "Como funciona — Gonza3DLab" },
+      { property: "og:title", content: "Como Trabalhamos — Gonza3DLab" },
       {
         property: "og:description",
         content: "Mapa mental do fluxo de trabalho da Gonza3DLab.",
@@ -92,7 +92,7 @@ function ComoFunciona() {
             Fluxo de trabalho
           </span>
           <h1 className="mt-4 font-display text-4xl font-bold md:text-5xl">
-            Como funciona a Gonza3DLab
+            Como a Gonza3DLab trabalha
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
             Um mapa mental do caminho que sua peça faz — do primeiro "oi" no

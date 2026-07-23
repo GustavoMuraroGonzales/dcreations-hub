@@ -73,7 +73,7 @@ function Servicos() {
         <div className="mt-16 rounded-2xl border border-secondary/30 bg-secondary/5 p-10 md:p-14">
           <h2 className="font-display text-3xl font-bold text-foreground">Não achou o que precisa?</h2>
           <p className="mt-3 max-w-xl text-muted-foreground">
-            Se você tem um projeto diferente, fale com a gente. Praticamente qualquer peça em plástico até 25 × 25 × 25 cm é possível.
+            Se você tem um projeto diferente, fale conosco. Praticamente qualquer peça em plástico até 25 × 25 × 25 cm é possível.
           </p>
           <Link
             to="/contato"
