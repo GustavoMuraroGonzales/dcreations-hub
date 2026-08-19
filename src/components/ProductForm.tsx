@@ -34,6 +34,7 @@ export function ProductForm({ productId }: Props) {
     cover_image_url: "" as string,
     is_active: true,
     sort_order: 0,
+    loja_integrada_url: "",
     mercado_livre_url: "",
     shopee_url: "",
     elo7_url: "",
