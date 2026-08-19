@@ -347,10 +347,30 @@ export function ProductForm({ productId }: Props) {
         )}
       </div>
 
+      <div className="rounded-lg border border-primary/40 bg-primary/5 p-4">
+        <h3 className="font-display text-lg font-semibold">Loja Integrada (loja própria)</h3>
+        <p className="mt-1 text-xs text-muted-foreground">
+          Se este campo estiver preenchido, o botão "Comprar" leva o cliente <strong>direto</strong> para a página do
+          produto na sua Loja Integrada — sem pop-up de escolha.
+        </p>
+        <div className="mt-4">
+          <Field label="URL do produto na Loja Integrada">
+            <input
+              type="url"
+              value={form.loja_integrada_url}
+              onChange={(e) => setForm((f) => ({ ...f, loja_integrada_url: e.target.value }))}
+              className={input}
+              placeholder="https://sualoja.com.br/produto/..."
+            />
+          </Field>
+        </div>
+      </div>
+
       <div className="rounded-lg border border-border p-4">
         <h3 className="font-display text-lg font-semibold">Links de compra (marketplaces)</h3>
         <p className="mt-1 text-xs text-muted-foreground">
-          Cole a URL do produto em cada plataforma. Só os links preenchidos aparecerão no pop-up "Onde comprar".
+          Usados apenas quando não houver link da Loja Integrada. Só os links preenchidos aparecerão no pop-up "Onde
+          comprar".
         </p>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
           <Field label="Mercado Livre">
