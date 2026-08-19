@@ -131,13 +131,24 @@ function ProdutoPage() {
             </dl>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <button
-                type="button"
-                onClick={() => setBuyOpen(true)}
-                className="inline-flex flex-1 items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground shadow-[var(--shadow-glow)] transition hover:opacity-90"
-              >
-                <ShoppingBag className="h-5 w-5" /> Comprar
-              </button>
+              {product.loja_integrada_url ? (
+                <a
+                  href={product.loja_integrada_url}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground shadow-[var(--shadow-glow)] transition hover:opacity-90"
+                >
+                  <ShoppingBag className="h-5 w-5" /> Comprar
+                </a>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setBuyOpen(true)}
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground shadow-[var(--shadow-glow)] transition hover:opacity-90"
+                >
+                  <ShoppingBag className="h-5 w-5" /> Comprar
+                </button>
+              )}
               <Link
                 to="/contato"
                 className="inline-flex items-center justify-center rounded-md border border-border px-6 py-3 font-semibold transition hover:border-primary/50"
@@ -147,7 +158,9 @@ function ProdutoPage() {
             </div>
 
             <p className="mt-6 text-xs text-muted-foreground">
-              Compre pelo marketplace de sua preferência. Envio e pagamento gerenciados pela plataforma escolhida.
+              {product.loja_integrada_url
+                ? "Compra, pagamento e envio realizados com segurança na nossa loja oficial."
+                : "Compre pelo marketplace de sua preferência. Envio e pagamento gerenciados pela plataforma escolhida."}
             </p>
           </div>
         </div>

@@ -149,6 +149,7 @@ export type Database = {
           elo7_url: string | null
           id: string
           is_active: boolean
+          loja_integrada_url: string | null
           material: string
           mercado_livre_url: string | null
           name: string
@@ -170,6 +171,7 @@ export type Database = {
           elo7_url?: string | null
           id?: string
           is_active?: boolean
+          loja_integrada_url?: string | null
           material?: string
           mercado_livre_url?: string | null
           name: string
@@ -191,6 +193,7 @@ export type Database = {
           elo7_url?: string | null
           id?: string
           is_active?: boolean
+          loja_integrada_url?: string | null
           material?: string
           mercado_livre_url?: string | null
           name?: string
