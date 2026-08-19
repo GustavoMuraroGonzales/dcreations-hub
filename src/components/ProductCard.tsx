@@ -46,14 +46,26 @@ export function ProductCard({ product }: { product: ProductWithCategory }) {
                 <span className="text-sm text-muted-foreground">Sob consulta</span>
               )}
             </span>
-            <button
-              type="button"
-              onClick={() => setBuyOpen(true)}
-              className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-primary-foreground transition hover:brightness-110"
-            >
-              <ShoppingBag className="h-4 w-4" />
-              Comprar
-            </button>
+            {product.loja_integrada_url ? (
+              <a
+                href={product.loja_integrada_url}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-primary-foreground transition hover:brightness-110"
+              >
+                <ShoppingBag className="h-4 w-4" />
+                Comprar
+              </a>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setBuyOpen(true)}
+                className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-primary-foreground transition hover:brightness-110"
+              >
+                <ShoppingBag className="h-4 w-4" />
+                Comprar
+              </button>
+            )}
           </div>
         </div>
       </div>
