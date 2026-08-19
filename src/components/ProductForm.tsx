@@ -59,6 +59,7 @@ export function ProductForm({ productId }: Props) {
         cover_image_url: existing.cover_image_url ?? "",
         is_active: existing.is_active,
         sort_order: existing.sort_order,
+        loja_integrada_url: existing.loja_integrada_url ?? "",
         mercado_livre_url: existing.mercado_livre_url ?? "",
         shopee_url: existing.shopee_url ?? "",
         elo7_url: existing.elo7_url ?? "",
