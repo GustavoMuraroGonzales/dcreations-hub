@@ -85,6 +85,7 @@ export function ProductForm({ productId }: Props) {
         cover_image_url: form.cover_image_url || null,
         is_active: form.is_active,
         sort_order: form.sort_order,
+        loja_integrada_url: form.loja_integrada_url.trim() || null,
         mercado_livre_url: form.mercado_livre_url.trim() || null,
         shopee_url: form.shopee_url.trim() || null,
         elo7_url: form.elo7_url.trim() || null,
