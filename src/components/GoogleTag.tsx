@@ -8,30 +8,8 @@ declare global {
   }
 }
 
-const MEASUREMENT_ID = "AW-18416246716";
-
+// The base Google tag is injected directly in the document head (src/routes/__root.tsx).
 export function GoogleTag() {
-  useEffect(() => {
-    if (typeof document === "undefined") return;
-
-    const existing = document.querySelector(
-      `script[src*="googletagmanager.com/gtag/js?id=${MEASUREMENT_ID}"]`,
-    );
-    if (existing) return;
-
-    const script = document.createElement("script");
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${MEASUREMENT_ID}`;
-    document.head.appendChild(script);
-
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function gtag(...args: unknown[]) {
-      window.dataLayer.push(args);
-    };
-    window.gtag("js", new Date());
-    window.gtag("config", MEASUREMENT_ID);
-  }, []);
-
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {

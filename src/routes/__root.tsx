@@ -99,6 +99,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/839f01ee-60bb-466b-a13e-35208d36e8b2/id-preview-4eb186f9--efee96d1-9802-4e0c-b5e7-cc3c6ea47a4d.lovable.app-1784077697604.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/839f01ee-60bb-466b-a13e-35208d36e8b2/id-preview-4eb186f9--efee96d1-9802-4e0c-b5e7-cc3c6ea47a4d.lovable.app-1784077697604.png" },
     ],
+    scripts: [
+      { src: "https://www.googletagmanager.com/gtag/js?id=AW-18416246716", async: true },
+      {
+        children:
+          "window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'AW-18416246716');",
+      },
+    ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
