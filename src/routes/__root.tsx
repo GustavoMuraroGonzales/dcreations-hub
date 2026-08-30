@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 import { Toaster } from "sonner";
 
 import { WhatsAppFab } from "@/components/WhatsAppFab";
+import { GoogleTag } from "@/components/GoogleTag";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
