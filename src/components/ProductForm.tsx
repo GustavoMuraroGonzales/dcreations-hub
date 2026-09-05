@@ -322,7 +322,7 @@ export function ProductForm({ productId }: Props) {
           <label className="block text-sm font-medium">Galeria de imagens</label>
           <label
             className={`inline-flex cursor-pointer items-center gap-2 rounded-md border border-border px-3 py-1.5 text-sm hover:border-primary/50 ${
-              uploading || !isEdit ? "opacity-60" : ""
+              uploading ? "opacity-60" : ""
             }`}
           >
             <Upload className="h-4 w-4" />
@@ -332,15 +332,38 @@ export function ProductForm({ productId }: Props) {
               multiple
               accept="image/*"
               className="hidden"
-              disabled={uploading || !isEdit}
-              onChange={(e) => handleFileUpload(e.target.files)}
+              disabled={uploading}
+              onChange={(e) => {
+                handleFileUpload(e.target.files);
+                e.target.value = "";
+              }}
             />
           </label>
         </div>
         {!isEdit && (
           <p className="text-xs text-muted-foreground">
-            Salve o produto primeiro para adicionar imagens.
+            As fotos escolhidas serão enviadas quando você salvar o produto.
           </p>
+        )}
+        {pending.length > 0 && (
+          <div className="mt-2 grid grid-cols-3 gap-3 md:grid-cols-4 lg:grid-cols-5">
+            {pending.map((p, idx) => (
+              <div key={p.preview} className="group relative aspect-square overflow-hidden rounded-md border border-dashed border-primary/50">
+                <img src={p.preview} alt="" className="h-full w-full object-cover" />
+                <span className="absolute left-1 top-1 rounded bg-muted px-1.5 py-0.5 text-[10px]">a enviar</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    URL.revokeObjectURL(p.preview);
+                    setPending((prev) => prev.filter((_, i) => i !== idx));
+                  }}
+                  className="absolute bottom-1 right-1 rounded bg-destructive/90 p-1 text-white"
+                >
+                  <Trash2 className="h-3 w-3" />
+                </button>
+              </div>
+            ))}
+          </div>
         )}
         {images.length > 0 && (
           <div className="mt-2 grid grid-cols-3 gap-3 md:grid-cols-4 lg:grid-cols-5">
