@@ -160,7 +160,11 @@ export function ProductForm({ productId }: Props) {
   async function handleFileUpload(files: FileList | null) {
     if (!files || files.length === 0) return;
     if (!productId) {
-      toast.error("Salve o produto primeiro para adicionar imagens.");
+      // Produto ainda não salvo: guarda as fotos e envia junto ao salvar
+      setPending((prev) => [
+        ...prev,
+        ...Array.from(files).map((file) => ({ file, preview: URL.createObjectURL(file) })),
+      ]);
       return;
     }
     setUploading(true);
