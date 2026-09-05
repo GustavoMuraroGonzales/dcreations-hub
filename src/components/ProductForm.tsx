@@ -94,22 +94,48 @@ export function ProductForm({ productId }: Props) {
         other_store_url: form.other_store_url.trim() || null,
         other_store_label: form.other_store_label.trim() || null,
       };
+      let id: string;
       if (isEdit && productId) {
         const { error } = await supabase.from("products").update(payload).eq("id", productId);
         if (error) throw error;
-        return productId;
+        id = productId;
       } else {
         const { data, error } = await supabase.from("products").insert(payload).select("id").single();
         if (error) throw error;
-        return data.id as string;
+        id = data.id as string;
       }
+
+      // Envia as fotos que foram escolhidas antes de salvar
+      if (pending.length > 0) {
+        setUploading(true);
+        try {
+          let cover = form.cover_image_url;
+          let order = images.length;
+          for (const p of pending) {
+            const { path, url } = await uploadProductImage(p.file);
+            const { error } = await supabase
+              .from("product_images")
+              .insert({ product_id: id, image_url: url, storage_path: path, sort_order: order++ });
+            if (error) throw error;
+            if (!cover) {
+              cover = url;
+              await supabase.from("products").update({ cover_image_url: url }).eq("id", id);
+            }
+          }
+          pending.forEach((p) => URL.revokeObjectURL(p.preview));
+          setPending([]);
+        } finally {
+          setUploading(false);
+        }
+      }
+      return id;
     },
     onSuccess: (id) => {
       qc.invalidateQueries({ queryKey: ["admin-products"] });
       qc.invalidateQueries({ queryKey: ["products"] });
       qc.invalidateQueries({ queryKey: ["admin-product", id] });
       toast.success(isEdit ? "Produto atualizado" : "Produto criado");
-      if (!isEdit) navigate({ to: "/admin/produtos/$id", params: { id } });
+      navigate({ to: "/admin/produtos" });
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : "Erro ao salvar"),
   });
