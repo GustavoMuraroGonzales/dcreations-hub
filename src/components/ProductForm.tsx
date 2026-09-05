@@ -43,6 +43,7 @@ export function ProductForm({ productId }: Props) {
     other_store_label: "",
   });
   const [images, setImages] = useState<ProductDetail["images"]>([]);
+  const [pending, setPending] = useState<{ file: File; preview: string }[]>([]);
   const [uploading, setUploading] = useState(false);
   const [slugTouched, setSlugTouched] = useState(false);
 
