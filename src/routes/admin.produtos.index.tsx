@@ -5,7 +5,7 @@ import { fetchProducts } from "@/lib/products";
 import { Plus, Edit, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/admin/produtos")({
+export const Route = createFileRoute("/admin/produtos/")({
   component: AdminProducts,
 });
 
