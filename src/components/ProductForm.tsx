@@ -43,6 +43,7 @@ export function ProductForm({ productId }: Props) {
     other_store_label: "",
   });
   const [images, setImages] = useState<ProductDetail["images"]>([]);
+  const [pending, setPending] = useState<{ file: File; preview: string }[]>([]);
   const [uploading, setUploading] = useState(false);
   const [slugTouched, setSlugTouched] = useState(false);
 
@@ -93,22 +94,48 @@ export function ProductForm({ productId }: Props) {
         other_store_url: form.other_store_url.trim() || null,
         other_store_label: form.other_store_label.trim() || null,
       };
+      let id: string;
       if (isEdit && productId) {
         const { error } = await supabase.from("products").update(payload).eq("id", productId);
         if (error) throw error;
-        return productId;
+        id = productId;
       } else {
         const { data, error } = await supabase.from("products").insert(payload).select("id").single();
         if (error) throw error;
-        return data.id as string;
+        id = data.id as string;
       }
+
+      // Envia as fotos que foram escolhidas antes de salvar
+      if (pending.length > 0) {
+        setUploading(true);
+        try {
+          let cover = form.cover_image_url;
+          let order = images.length;
+          for (const p of pending) {
+            const { path, url } = await uploadProductImage(p.file);
+            const { error } = await supabase
+              .from("product_images")
+              .insert({ product_id: id, image_url: url, storage_path: path, sort_order: order++ });
+            if (error) throw error;
+            if (!cover) {
+              cover = url;
+              await supabase.from("products").update({ cover_image_url: url }).eq("id", id);
+            }
+          }
+          pending.forEach((p) => URL.revokeObjectURL(p.preview));
+          setPending([]);
+        } finally {
+          setUploading(false);
+        }
+      }
+      return id;
     },
     onSuccess: (id) => {
       qc.invalidateQueries({ queryKey: ["admin-products"] });
       qc.invalidateQueries({ queryKey: ["products"] });
       qc.invalidateQueries({ queryKey: ["admin-product", id] });
       toast.success(isEdit ? "Produto atualizado" : "Produto criado");
-      if (!isEdit) navigate({ to: "/admin/produtos/$id", params: { id } });
+      navigate({ to: "/admin/produtos" });
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : "Erro ao salvar"),
   });
@@ -133,7 +160,11 @@ export function ProductForm({ productId }: Props) {
   async function handleFileUpload(files: FileList | null) {
     if (!files || files.length === 0) return;
     if (!productId) {
-      toast.error("Salve o produto primeiro para adicionar imagens.");
+      // Produto ainda não salvo: guarda as fotos e envia junto ao salvar
+      setPending((prev) => [
+        ...prev,
+        ...Array.from(files).map((file) => ({ file, preview: URL.createObjectURL(file) })),
+      ]);
       return;
     }
     setUploading(true);
@@ -291,7 +322,7 @@ export function ProductForm({ productId }: Props) {
           <label className="block text-sm font-medium">Galeria de imagens</label>
           <label
             className={`inline-flex cursor-pointer items-center gap-2 rounded-md border border-border px-3 py-1.5 text-sm hover:border-primary/50 ${
-              uploading || !isEdit ? "opacity-60" : ""
+              uploading ? "opacity-60" : ""
             }`}
           >
             <Upload className="h-4 w-4" />
@@ -301,15 +332,38 @@ export function ProductForm({ productId }: Props) {
               multiple
               accept="image/*"
               className="hidden"
-              disabled={uploading || !isEdit}
-              onChange={(e) => handleFileUpload(e.target.files)}
+              disabled={uploading}
+              onChange={(e) => {
+                handleFileUpload(e.target.files);
+                e.target.value = "";
+              }}
             />
           </label>
         </div>
         {!isEdit && (
           <p className="text-xs text-muted-foreground">
-            Salve o produto primeiro para adicionar imagens.
+            As fotos escolhidas serão enviadas quando você salvar o produto.
           </p>
+        )}
+        {pending.length > 0 && (
+          <div className="mt-2 grid grid-cols-3 gap-3 md:grid-cols-4 lg:grid-cols-5">
+            {pending.map((p, idx) => (
+              <div key={p.preview} className="group relative aspect-square overflow-hidden rounded-md border border-dashed border-primary/50">
+                <img src={p.preview} alt="" className="h-full w-full object-cover" />
+                <span className="absolute left-1 top-1 rounded bg-muted px-1.5 py-0.5 text-[10px]">a enviar</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    URL.revokeObjectURL(p.preview);
+                    setPending((prev) => prev.filter((_, i) => i !== idx));
+                  }}
+                  className="absolute bottom-1 right-1 rounded bg-destructive/90 p-1 text-white"
+                >
+                  <Trash2 className="h-3 w-3" />
+                </button>
+              </div>
+            ))}
+          </div>
         )}
         {images.length > 0 && (
           <div className="mt-2 grid grid-cols-3 gap-3 md:grid-cols-4 lg:grid-cols-5">
