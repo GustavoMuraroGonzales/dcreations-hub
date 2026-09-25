@@ -108,14 +108,10 @@ function Home() {
                 decoding="async"
                 className="aspect-[4/3] w-full object-cover"
               />
-              <div className="grid grid-cols-3 divide-x divide-border border-t border-border bg-card text-center">
+              <div className="grid grid-cols-2 divide-x divide-border border-t border-border bg-card text-center">
                 <div className="px-3 py-4">
                   <p className="font-display text-sm font-semibold text-foreground">PLA · PETG · ABS</p>
                   <p className="mt-0.5 text-xs text-muted-foreground">Materiais</p>
-                </div>
-                <div className="px-3 py-4">
-                  <p className="font-display text-sm font-semibold text-foreground">0,12 mm</p>
-                  <p className="mt-0.5 text-xs text-muted-foreground">Camada mínima</p>
                 </div>
                 <div className="px-3 py-4">
                   <p className="font-display text-sm font-semibold text-foreground">até 48h</p>
