@@ -128,7 +128,6 @@ function ComoFunciona() {
               );
             })}
           </div>
-        </div>
       </section>
       <section className="border-t border-border bg-muted/30">
         <div className="mx-auto max-w-6xl px-4 py-16 text-center md:px-8 md:py-20">
