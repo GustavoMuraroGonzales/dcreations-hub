@@ -10,6 +10,7 @@ import {
   PackageCheck,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/como-funciona")({
   head: () => ({
@@ -25,6 +26,8 @@ export const Route = createFileRoute("/como-funciona")({
         property: "og:description",
         content: "Mapa mental do fluxo de trabalho da Gonza3DLab.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: ComoFunciona,
@@ -86,48 +89,32 @@ const steps: Step[] = [
 function ComoFunciona() {
   return (
     <Layout>
-      <section className="mx-auto max-w-6xl px-4 py-20 md:px-8">
-        <div className="max-w-3xl">
-          <span className="inline-flex rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
-            Fluxo de trabalho
-          </span>
-          <h1 className="mt-4 font-display text-4xl font-bold md:text-5xl">
+      <section className="border-b border-border bg-muted/30">
+        <div className="mx-auto max-w-6xl px-4 py-14 md:px-8 md:py-20">
+          <p className="text-xs font-semibold uppercase text-primary">Fluxo de trabalho</p>
+          <h1 className="mt-3 font-display text-4xl font-bold md:text-5xl">
             Como a Gonza3DLab trabalha
           </h1>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <p className="mt-4 max-w-3xl text-lg text-muted-foreground">
             Um mapa mental do caminho que sua peça faz — do primeiro "oi" no
             WhatsApp até chegar na sua mão.
           </p>
         </div>
-
-        {/* Mind map */}
-        <div className="relative mt-16">
-          {/* Center node */}
-          <div className="mx-auto grid max-w-xs place-items-center rounded-2xl border border-primary/40 bg-gradient-to-br from-primary/20 to-primary/5 p-6 text-center shadow-[var(--shadow-glow)]">
-            <div className="grid h-14 w-14 place-items-center rounded-full bg-primary text-primary-foreground">
-              <Printer className="h-7 w-7" />
-            </div>
-            <div className="mt-3 font-display text-xl font-bold">Seu projeto 3D</div>
-            <div className="text-xs text-muted-foreground">Do briefing à entrega</div>
-          </div>
-
-          {/* Branches */}
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {steps.map((s, i) => {
+      </section>
+      <section className="mx-auto max-w-6xl px-4 py-16 md:px-8 md:py-20">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {steps.map((s) => {
               const Icon = s.icon;
               return (
                 <div
                   key={s.n}
-                  className="group relative rounded-xl border border-border bg-card p-6 transition hover:-translate-y-1 hover:border-primary/50 hover:shadow-[var(--shadow-glow)]"
-                  style={{ animationDelay: `${i * 60}ms` }}
+                  className="rounded-md border border-border bg-card p-6 transition-colors hover:border-primary/50"
                 >
-                  <div className="absolute -top-3 left-6 rounded-full bg-primary px-3 py-1 text-xs font-bold text-primary-foreground">
-                    {s.n}
+                  <div className="flex items-center justify-between text-primary">
+                    <Icon className="h-6 w-6" />
+                    <span className="font-display text-sm font-semibold">{s.n}</span>
                   </div>
-                  <div className="mb-3 grid h-11 w-11 place-items-center rounded-lg bg-primary/10 text-primary">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="font-display text-lg font-semibold">{s.title}</h3>
+                  <h2 className="mt-5 font-display text-lg font-semibold">{s.title}</h2>
                   <p className="mt-1 text-sm text-muted-foreground">{s.desc}</p>
                   <ul className="mt-4 space-y-1.5">
                     {s.details.map((d) => (
@@ -141,25 +128,25 @@ function ComoFunciona() {
               );
             })}
           </div>
-        </div>
-
-        {/* CTA */}
-        <div className="mt-16 rounded-2xl border border-border bg-gradient-to-br from-primary/10 to-transparent p-8 text-center md:p-12">
+      </section>
+      <section className="border-t border-border bg-muted/30">
+        <div className="mx-auto max-w-6xl px-4 py-16 text-center md:px-8 md:py-20">
           <h2 className="font-display text-2xl font-bold md:text-3xl">
             Pronto para começar seu projeto?
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-            Conte sua ideia no WhatsApp e receba um orçamento rápido.
+            Conte sua ideia no WhatsApp e receba um orçamento em até 48h.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <Button asChild size="lg">
             <a
               href={whatsappLink("Olá! Quero um orçamento.")}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-md bg-[#25D366] px-6 py-3 font-semibold text-white shadow-lg transition hover:opacity-90"
             >
               <MessageCircle className="h-5 w-5" /> Orçamento rápido
             </a>
+            </Button>
             <Link
               to="/contato"
               className="inline-flex items-center gap-2 rounded-md border border-border px-6 py-3 font-semibold transition hover:border-primary/50"

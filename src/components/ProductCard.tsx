@@ -3,32 +3,33 @@ import { useState } from "react";
 import { ShoppingBag } from "lucide-react";
 import type { ProductWithCategory } from "@/lib/products";
 import { BuyModal } from "./BuyModal";
+import { Button } from "@/components/ui/button";
 
 export function ProductCard({ product }: { product: ProductWithCategory }) {
   const [buyOpen, setBuyOpen] = useState(false);
 
   return (
     <>
-      <div className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]">
+      <div className="group flex flex-col overflow-hidden rounded-md border border-border bg-card transition-colors hover:border-primary/50">
         <Link
           to="/produto/$id"
           params={{ id: product.slug }}
-          className="relative aspect-square overflow-hidden bg-gradient-to-br from-slate-700/40 to-slate-900/60"
+          className="relative aspect-square overflow-hidden bg-muted/50"
         >
           {product.cover_image_url ? (
             <img
               src={product.cover_image_url}
               alt={product.name}
-              className="h-full w-full object-cover transition group-hover:scale-105"
+              className="h-full w-full object-cover"
               loading="lazy"
             />
           ) : (
             <div className="absolute inset-0 grid place-items-center">
-              <span className="font-display text-6xl font-bold text-white/20">3D</span>
+              <span className="font-display text-6xl font-bold text-muted-foreground/30">3D</span>
             </div>
           )}
           {product.category && (
-            <div className="absolute left-3 top-3 rounded-full bg-background/90 px-3 py-1 text-xs font-medium">
+            <div className="absolute left-3 top-3 rounded-sm border border-border bg-background px-3 py-1 text-xs font-medium">
               {product.category.name}
             </div>
           )}
@@ -51,20 +52,20 @@ export function ProductCard({ product }: { product: ProductWithCategory }) {
                 href={product.loja_integrada_url}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-primary-foreground transition hover:brightness-110"
+                className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
               >
                 <ShoppingBag className="h-4 w-4" />
                 Comprar
               </a>
             ) : (
-              <button
+              <Button
                 type="button"
+                size="sm"
                 onClick={() => setBuyOpen(true)}
-                className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-primary-foreground transition hover:brightness-110"
               >
                 <ShoppingBag className="h-4 w-4" />
                 Comprar
-              </button>
+              </Button>
             )}
           </div>
         </div>
