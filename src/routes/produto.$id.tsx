@@ -4,6 +4,7 @@ import { Layout } from "@/components/Layout";
 import { BuyModal } from "@/components/BuyModal";
 import { fetchProductBySlug, type ProductDetail } from "@/lib/products";
 import { ArrowLeft, ShoppingBag } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const SITE_URL = "https://dcreations-hub.lovable.app";
 
@@ -41,7 +42,7 @@ export const Route = createFileRoute("/produto/$id")({
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: desc },
     ];
-    if (image) {
+    if (image && /^https:\/\//.test(image)) {
       meta.push({ property: "og:image", content: image });
       meta.push({ name: "twitter:image", content: image });
     }
@@ -79,28 +80,30 @@ function ProdutoPage() {
 
         <div className="mt-8 grid gap-10 md:grid-cols-2">
           <div>
-            <div className="aspect-square overflow-hidden rounded-2xl bg-gradient-to-br from-slate-700/40 to-slate-900/60 relative">
+            <div className="relative aspect-square overflow-hidden rounded-md border border-border bg-muted/50">
               {heroImg ? (
                 <img src={heroImg} alt={product.name} className="h-full w-full object-cover" />
               ) : (
                 <div className="absolute inset-0 grid place-items-center">
-                  <span className="font-display text-9xl font-bold text-white/20">3D</span>
+                  <span className="font-display text-9xl font-bold text-muted-foreground/30">3D</span>
                 </div>
               )}
             </div>
             {product.images.length > 1 && (
               <div className="mt-3 grid grid-cols-5 gap-2">
                 {product.images.map((img, i) => (
-                  <button
+                  <Button
+                    type="button"
+                    variant="outline"
                     key={img.id}
                     onClick={() => setSelectedImage(img.image_url)}
                     aria-label={`Ver imagem ${i + 1} de ${product.name}`}
-                    className={`aspect-square overflow-hidden rounded-md border-2 transition ${
+                    className={`aspect-square h-auto overflow-hidden rounded-md border-2 p-0 transition ${
                       heroImg === img.image_url ? "border-primary" : "border-transparent hover:border-border"
                     }`}
                   >
                     <img src={img.image_url} alt="" className="h-full w-full object-cover" />
-                  </button>
+                  </Button>
                 ))}
               </div>
             )}
@@ -108,14 +111,14 @@ function ProdutoPage() {
 
           <div className="flex flex-col">
             {product.category && (
-              <span className="w-fit rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+              <span className="w-fit rounded-sm border border-border px-3 py-1 text-xs font-medium text-primary">
                 {product.category.name}
               </span>
             )}
             <h1 className="mt-4 font-display text-4xl font-bold md:text-5xl">{product.name}</h1>
             <p className="mt-4 text-lg text-muted-foreground whitespace-pre-line">{product.description}</p>
 
-            <dl className="mt-6 grid grid-cols-2 gap-4 rounded-lg border border-border p-4">
+            <dl className="mt-6 grid grid-cols-2 gap-4 border-y border-border py-5">
               <div>
                 <dt className="text-xs uppercase tracking-wide text-muted-foreground">Material</dt>
                 <dd className="mt-1 font-semibold">{product.material || "—"}</dd>
@@ -136,18 +139,19 @@ function ProdutoPage() {
                   href={product.loja_integrada_url}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground shadow-[var(--shadow-glow)] transition hover:opacity-90"
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground transition hover:opacity-90"
                 >
                   <ShoppingBag className="h-5 w-5" /> Comprar
                 </a>
               ) : (
-                <button
+                <Button
                   type="button"
+                  size="lg"
                   onClick={() => setBuyOpen(true)}
-                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground shadow-[var(--shadow-glow)] transition hover:opacity-90"
+                  className="flex-1"
                 >
                   <ShoppingBag className="h-5 w-5" /> Comprar
-                </button>
+                </Button>
               )}
               <Link
                 to="/contato"
