@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Layout } from "@/components/Layout";
 import { EMAIL, INSTAGRAM, whatsappLink } from "@/lib/contact";
 import { Mail, MessageCircle, Instagram } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/contato")({
   head: () => ({
@@ -11,6 +12,8 @@ export const Route = createFileRoute("/contato")({
       { name: "description", content: "Fale com a Gonza3DLab. Orçamentos por WhatsApp, e-mail ou formulário." },
       { property: "og:title", content: "Contato — Gonza3DLab" },
       { property: "og:description", content: "Fale com a Gonza3DLab para orçamento." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Contato,
@@ -27,17 +30,22 @@ function Contato() {
 
   return (
     <Layout>
-      <section className="mx-auto max-w-6xl px-4 py-20 md:px-8">
-        <h1 className="font-display text-4xl font-bold md:text-5xl">Vamos conversar</h1>
-        <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-          Envie seu arquivo STL, tire dúvidas ou peça um orçamento. Respondemos em até 48h.
-        </p>
-
-        <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_360px]">
-          <form onSubmit={handleSubmit} className="space-y-4 rounded-xl border border-border p-6 md:p-8">
+      <section className="border-b border-border bg-muted/30">
+        <div className="mx-auto max-w-6xl px-4 py-14 md:px-8 md:py-20">
+          <p className="text-xs font-semibold uppercase text-primary">Contato</p>
+          <h1 className="mt-3 font-display text-4xl font-bold md:text-5xl">Vamos conversar</h1>
+          <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
+            Envie seu arquivo STL, tire dúvidas ou peça um orçamento. Respondemos em até 48h.
+          </p>
+        </div>
+      </section>
+      <section className="mx-auto max-w-6xl px-4 py-16 md:px-8 md:py-20">
+        <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
+          <form onSubmit={handleSubmit} className="space-y-4 rounded-md border border-border bg-card p-6 md:p-8">
             <div>
-              <label className="text-sm font-medium">Nome</label>
+              <label htmlFor="contact-name" className="text-sm font-medium">Nome</label>
               <input
+                id="contact-name"
                 required
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -45,8 +53,9 @@ function Contato() {
               />
             </div>
             <div>
-              <label className="text-sm font-medium">E-mail</label>
+              <label htmlFor="contact-email" className="text-sm font-medium">E-mail</label>
               <input
+                id="contact-email"
                 type="email"
                 required
                 value={form.email}
@@ -55,8 +64,9 @@ function Contato() {
               />
             </div>
             <div>
-              <label className="text-sm font-medium">Mensagem</label>
+              <label htmlFor="contact-message" className="text-sm font-medium">Mensagem</label>
               <textarea
+                id="contact-message"
                 required
                 rows={5}
                 value={form.message}
@@ -65,12 +75,13 @@ function Contato() {
                 className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring"
               />
             </div>
-            <button
+            <Button
               type="submit"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground shadow-[var(--shadow-glow)] transition hover:opacity-90"
+              size="lg"
+              className="w-full"
             >
               <MessageCircle className="h-5 w-5" /> Enviar via WhatsApp
-            </button>
+            </Button>
             <p className="text-xs text-muted-foreground">
               Ao enviar, abrimos uma conversa no WhatsApp com sua mensagem pronta.
             </p>
@@ -81,7 +92,7 @@ function Contato() {
               href={whatsappLink("Olá! Vim pelo site.")}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-4 rounded-xl border border-border p-5 transition hover:border-primary/50"
+              className="flex items-center gap-4 rounded-md border border-border p-5 transition hover:border-primary/50"
             >
               <div className="grid h-11 w-11 place-items-center rounded-lg bg-primary/10 text-primary">
                 <MessageCircle className="h-5 w-5" />
@@ -93,7 +104,7 @@ function Contato() {
             </a>
             <a
               href={`mailto:${EMAIL}`}
-              className="flex items-center gap-4 rounded-xl border border-border p-5 transition hover:border-primary/50"
+              className="flex items-center gap-4 rounded-md border border-border p-5 transition hover:border-primary/50"
             >
               <div className="grid h-11 w-11 place-items-center rounded-lg bg-primary/10 text-primary">
                 <Mail className="h-5 w-5" />
@@ -107,7 +118,7 @@ function Contato() {
               href={INSTAGRAM}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-4 rounded-xl border border-border p-5 transition hover:border-primary/50"
+              className="flex items-center gap-4 rounded-md border border-border p-5 transition hover:border-primary/50"
             >
               <div className="grid h-11 w-11 place-items-center rounded-lg bg-primary/10 text-primary">
                 <Instagram className="h-5 w-5" />
