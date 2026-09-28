@@ -9,6 +9,8 @@ export const Route = createFileRoute("/servicos")({
       { name: "description", content: "Impressão 3D sob demanda: miniaturas, peças técnicas, personalizados e protótipos." },
       { property: "og:title", content: "Serviços — Gonza3DLab" },
       { property: "og:description", content: "Impressão 3D sob demanda com qualidade e precisão." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Servicos,
@@ -44,18 +46,20 @@ const services = [
 function Servicos() {
   return (
     <Layout>
-      <section className="mx-auto max-w-7xl px-4 py-20 md:px-8">
-        <h1 className="font-display text-4xl font-bold md:text-5xl">Nossos serviços</h1>
-        <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-          Trabalhamos com quatro linhas de impressão 3D, cada uma pensada para um tipo de necessidade.
-        </p>
-
-        <div className="mt-14 grid gap-8 md:grid-cols-2">
+      <section className="border-b border-border bg-muted/30">
+        <div className="mx-auto max-w-7xl px-4 py-14 md:px-8 md:py-20">
+          <p className="text-xs font-semibold uppercase text-primary">Impressão 3D FDM</p>
+          <h1 className="mt-3 font-display text-4xl font-bold md:text-5xl">Nossos serviços</h1>
+          <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
+            Trabalhamos com quatro linhas de impressão 3D, cada uma pensada para um tipo de necessidade.
+          </p>
+        </div>
+      </section>
+      <section className="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
+        <div className="grid gap-6 md:grid-cols-2">
           {services.map((s) => (
-            <div key={s.title} className="rounded-xl border border-border p-8 transition hover:border-primary/50">
-              <div className="grid h-12 w-12 place-items-center rounded-lg bg-primary/10 text-primary">
-                <s.icon className="h-6 w-6" />
-              </div>
+            <div key={s.title} className="rounded-md border border-border bg-card p-6 transition-colors hover:border-primary/50 md:p-8">
+              <s.icon className="h-6 w-6 text-primary" />
               <h2 className="mt-5 font-display text-2xl font-semibold">{s.title}</h2>
               <p className="mt-3 text-muted-foreground">{s.desc}</p>
               <ul className="mt-5 space-y-2">
@@ -70,7 +74,9 @@ function Servicos() {
           ))}
         </div>
 
-        <div className="mt-16 rounded-2xl border border-secondary/30 bg-secondary/5 p-10 md:p-14">
+      </section>
+      <section className="border-t border-border bg-muted/30">
+        <div className="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
           <h2 className="font-display text-3xl font-bold text-foreground">Não achou o que precisa?</h2>
           <p className="mt-3 max-w-xl text-muted-foreground">
             Se você tem um projeto diferente, fale conosco. Praticamente qualquer peça em plástico até 25 × 25 × 25 cm é possível.
@@ -82,7 +88,6 @@ function Servicos() {
             Falar sobre meu projeto
           </Link>
         </div>
-
       </section>
     </Layout>
   );
