@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /auth
 
-Sitemap: https://dcreations-hub.lovable.app/sitemap.xml
+Sitemap: https://gonza3dlab.com.br/sitemap.xml
