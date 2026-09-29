@@ -5,6 +5,7 @@ import { Layout } from "@/components/Layout";
 import { ProductCard } from "@/components/ProductCard";
 import { fetchCategories, fetchProducts } from "@/lib/products";
 import { Button } from "@/components/ui/button";
+import { canonical } from "@/lib/site";
 
 export const Route = createFileRoute("/catalogo")({
   head: () => ({
@@ -14,8 +15,10 @@ export const Route = createFileRoute("/catalogo")({
       { property: "og:title", content: "Catálogo — Gonza3DLab" },
       { property: "og:description", content: "Explore nosso catálogo de peças impressas em 3D." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: canonical("/catalogo") },
       { name: "twitter:card", content: "summary" },
     ],
+    links: [{ rel: "canonical", href: canonical("/catalogo") }],
   }),
   component: Catalogo,
 });

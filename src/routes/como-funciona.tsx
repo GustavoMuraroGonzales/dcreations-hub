@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { canonical } from "@/lib/site";
 
 export const Route = createFileRoute("/como-funciona")({
   head: () => ({
@@ -19,16 +20,18 @@ export const Route = createFileRoute("/como-funciona")({
       {
         name: "description",
         content:
-          "Do primeiro contato à entrega: veja o mapa mental do fluxo de trabalho da Gonza3DLab para impressão 3D sob demanda.",
+          "Do primeiro contato à entrega: veja o fluxo de trabalho da Gonza3DLab para impressão 3D sob demanda.",
       },
       { property: "og:title", content: "Como Trabalhamos — Gonza3DLab" },
       {
         property: "og:description",
-        content: "Mapa mental do fluxo de trabalho da Gonza3DLab.",
+        content: "O caminho da sua peça na Gonza3DLab, do orçamento à entrega.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: canonical("/como-funciona") },
       { name: "twitter:card", content: "summary" },
     ],
+    links: [{ rel: "canonical", href: canonical("/como-funciona") }],
   }),
   component: ComoFunciona,
 });

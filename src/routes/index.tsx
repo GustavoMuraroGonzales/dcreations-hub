@@ -6,6 +6,7 @@ import { InstagramFeed } from "@/components/InstagramFeed";
 import { fetchProducts } from "@/lib/products";
 import { ArrowRight, Boxes, Cog, Package, Ruler, Sparkles, Headset, Zap } from "lucide-react";
 import heroImg from "@/assets/hero-printer.jpg";
+import { canonical } from "@/lib/site";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -23,8 +24,10 @@ export const Route = createFileRoute("/")({
           "Da ideia ou arquivo STL à peça impressa. Orçamento em até 48h, acabamento cuidadoso e envio para todo o Brasil.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: canonical("/") },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: canonical("/") }],
   }),
   component: Home,
 });
