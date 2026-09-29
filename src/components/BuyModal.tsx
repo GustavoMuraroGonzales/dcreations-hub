@@ -54,7 +54,7 @@ export function BuyModal({ product, open, onClose }: { product: BuyableProduct; 
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-foreground/40 p-4 backdrop-blur-sm"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -62,18 +62,21 @@ export function BuyModal({ product, open, onClose }: { product: BuyableProduct; 
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-md overflow-hidden rounded-2xl border border-border bg-card shadow-2xl"
+        className="relative w-full max-w-md overflow-hidden rounded-md border border-border bg-card shadow-lg"
       >
         <button
           onClick={onClose}
           aria-label="Fechar"
-          className="absolute right-3 top-3 rounded-full p-1.5 text-muted-foreground transition hover:bg-muted hover:text-foreground"
+          className="absolute right-3 top-3 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
         >
           <X className="h-5 w-5" />
         </button>
 
         <div className="p-6">
-          <h2 id="buy-modal-title" className="font-display text-2xl font-bold">
+          <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-wider text-primary">
+            Comprar
+          </span>
+          <h2 id="buy-modal-title" className="font-display text-2xl font-bold tracking-tight">
             Onde comprar
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
