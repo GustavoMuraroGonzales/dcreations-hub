@@ -6,7 +6,7 @@ import { fetchProductBySlug, type ProductDetail } from "@/lib/products";
 import { ArrowLeft, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const SITE_URL = "https://dcreations-hub.lovable.app";
+import { SITE_URL } from "@/lib/site";
 
 export const Route = createFileRoute("/produto/$id")({
   loader: async ({ params }): Promise<ProductDetail> => {

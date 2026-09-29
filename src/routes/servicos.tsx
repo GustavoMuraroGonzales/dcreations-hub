@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Layout } from "@/components/Layout";
 import { Boxes, Cog, Sparkles, Zap, Check } from "lucide-react";
+import { canonical } from "@/lib/site";
 
 export const Route = createFileRoute("/servicos")({
   head: () => ({
@@ -10,8 +11,10 @@ export const Route = createFileRoute("/servicos")({
       { property: "og:title", content: "Serviços — Gonza3DLab" },
       { property: "og:description", content: "Impressão 3D sob demanda com qualidade e precisão." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: canonical("/servicos") },
       { name: "twitter:card", content: "summary" },
     ],
+    links: [{ rel: "canonical", href: canonical("/servicos") }],
   }),
   component: Servicos,
 });

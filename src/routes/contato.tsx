@@ -4,6 +4,7 @@ import { Layout } from "@/components/Layout";
 import { EMAIL, INSTAGRAM, whatsappLink } from "@/lib/contact";
 import { Mail, MessageCircle, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { canonical } from "@/lib/site";
 
 export const Route = createFileRoute("/contato")({
   head: () => ({
@@ -13,8 +14,10 @@ export const Route = createFileRoute("/contato")({
       { property: "og:title", content: "Contato — Gonza3DLab" },
       { property: "og:description", content: "Fale com a Gonza3DLab para orçamento." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: canonical("/contato") },
       { name: "twitter:card", content: "summary" },
     ],
+    links: [{ rel: "canonical", href: canonical("/contato") }],
   }),
   component: Contato,
 });

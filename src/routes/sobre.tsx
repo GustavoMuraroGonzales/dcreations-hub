@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Layout } from "@/components/Layout";
+import { canonical } from "@/lib/site";
 
 export const Route = createFileRoute("/sobre")({
   head: () => ({
@@ -9,8 +10,10 @@ export const Route = createFileRoute("/sobre")({
       { property: "og:title", content: "Sobre — Gonza3DLab" },
       { property: "og:description", content: "Nossa história e nosso jeito de trabalhar." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: canonical("/sobre") },
       { name: "twitter:card", content: "summary" },
     ],
+    links: [{ rel: "canonical", href: canonical("/sobre") }],
   }),
   component: Sobre,
 });
