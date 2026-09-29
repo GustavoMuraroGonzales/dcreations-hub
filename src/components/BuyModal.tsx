@@ -91,7 +91,7 @@ export function BuyModal({ product, open, onClose }: { product: BuyableProduct; 
                   href={s.url}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className={`flex items-center justify-between rounded-lg px-4 py-3 font-semibold transition ${s.color}`}
+                  className={`flex items-center justify-between rounded-md px-4 py-3 text-sm font-semibold transition ${s.color}`}
                 >
                   <span>Comprar no {s.label}</span>
                   <ExternalLink className="h-4 w-4 opacity-80" />
@@ -99,20 +99,20 @@ export function BuyModal({ product, open, onClose }: { product: BuyableProduct; 
               ))}
             </div>
           ) : (
-            <div className="mt-6 rounded-lg border border-dashed border-border p-4 text-sm text-muted-foreground">
+            <div className="mt-6 rounded-md border border-dashed border-border p-4 text-sm text-muted-foreground">
               Ainda não há lojas online cadastradas para este produto. Fale conosco pelo WhatsApp para receber orientação de compra.
             </div>
           )}
 
-          <div className="mt-4 border-t border-border pt-4">
-            <p className="mb-2 text-xs uppercase tracking-wide text-muted-foreground">
+          <div className="mt-5 border-t border-border pt-5">
+            <p className="mb-2 text-xs uppercase tracking-wider text-muted-foreground">
               Prefere falar direto conosco?
             </p>
             <a
               href={whatsappLink(msg)}
               target="_blank"
               rel="noreferrer noopener"
-              className="flex items-center justify-center gap-2 rounded-lg border border-primary/40 bg-primary/10 px-4 py-3 font-semibold text-primary transition hover:bg-primary/20"
+              className="flex items-center justify-center gap-2 rounded-md border border-border bg-background px-4 py-3 text-sm font-semibold text-foreground transition-colors hover:border-primary hover:text-primary"
             >
               <MessageCircle className="h-5 w-5" />
               Orçamento pelo WhatsApp

@@ -42,10 +42,10 @@ export function InstagramFeed() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 md:px-8">
       <div className="mb-10 text-center">
-        <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+        <span className="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary">
           <Instagram className="h-3 w-3" /> Instagram
         </span>
-        <h2 className="font-display text-3xl font-bold md:text-4xl">Siga a Gonza3DLab</h2>
+        <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl">Siga a Gonza3DLab</h2>
         <p className="mt-2 text-muted-foreground">
           Acompanhe nossas últimas peças e bastidores da impressão 3D.
         </p>
@@ -54,13 +54,13 @@ export function InstagramFeed() {
       {isLoading ? (
         <div className="grid place-items-center py-12 text-muted-foreground">Carregando posts...</div>
       ) : posts.length === 0 ? (
-        <div className="rounded-2xl border border-border bg-card p-8 text-center shadow-[var(--shadow-soft)]">
+        <div className="rounded-md border border-border bg-card p-8 text-center">
           <p className="text-muted-foreground">Nenhum post do Instagram cadastrado ainda.</p>
           <a
             href="https://www.instagram.com/gonza3dlab"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+            className="mt-4 inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
             <Instagram className="h-4 w-4" /> Ver perfil no Instagram
           </a>
@@ -68,7 +68,7 @@ export function InstagramFeed() {
       ) : (
         <div
           ref={containerRef}
-          className="overflow-hidden rounded-2xl border border-border bg-card p-4 shadow-[var(--shadow-soft)]"
+          className="overflow-hidden rounded-md border border-border bg-card p-4"
         >
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {posts.map((post) => {
