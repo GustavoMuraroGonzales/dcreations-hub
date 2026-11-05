@@ -23,6 +23,7 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminAuditoriaRouteImport } from './routes/admin.auditoria'
 import { Route as AdminCategoriasRouteImport } from './routes/admin.categorias'
 import { Route as AdminInstagramRouteImport } from './routes/admin.instagram'
+import { Route as AdminSegmentosRouteImport } from './routes/admin.segmentos'
 import { Route as AdminUsuariosRouteImport } from './routes/admin.usuarios'
 import { Route as ProdutoIdRouteImport } from './routes/produto.$id'
 import { Route as AdminProdutosIndexRouteImport } from './routes/admin.produtos.index'
@@ -99,6 +100,11 @@ const AdminInstagramRoute = AdminInstagramRouteImport.update({
   path: '/instagram',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminSegmentosRoute = AdminSegmentosRouteImport.update({
+  id: '/segmentos',
+  path: '/segmentos',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminUsuariosRoute = AdminUsuariosRouteImport.update({
   id: '/usuarios',
   path: '/usuarios',
@@ -139,6 +145,7 @@ export interface FileRoutesByFullPath {
   '/admin/auditoria': typeof AdminAuditoriaRoute
   '/admin/categorias': typeof AdminCategoriasRoute
   '/admin/instagram': typeof AdminInstagramRoute
+  '/admin/segmentos': typeof AdminSegmentosRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
   '/produto/$id': typeof ProdutoIdRoute
   '/admin/': typeof AdminIndexRoute
@@ -159,6 +166,7 @@ export interface FileRoutesByTo {
   '/admin/auditoria': typeof AdminAuditoriaRoute
   '/admin/categorias': typeof AdminCategoriasRoute
   '/admin/instagram': typeof AdminInstagramRoute
+  '/admin/segmentos': typeof AdminSegmentosRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
   '/produto/$id': typeof ProdutoIdRoute
   '/admin': typeof AdminIndexRoute
@@ -181,6 +189,7 @@ export interface FileRoutesById {
   '/admin/auditoria': typeof AdminAuditoriaRoute
   '/admin/categorias': typeof AdminCategoriasRoute
   '/admin/instagram': typeof AdminInstagramRoute
+  '/admin/segmentos': typeof AdminSegmentosRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
   '/produto/$id': typeof ProdutoIdRoute
   '/admin/': typeof AdminIndexRoute
@@ -204,6 +213,7 @@ export interface FileRouteTypes {
     | '/admin/auditoria'
     | '/admin/categorias'
     | '/admin/instagram'
+    | '/admin/segmentos'
     | '/admin/usuarios'
     | '/produto/$id'
     | '/admin/'
@@ -224,6 +234,7 @@ export interface FileRouteTypes {
     | '/admin/auditoria'
     | '/admin/categorias'
     | '/admin/instagram'
+    | '/admin/segmentos'
     | '/admin/usuarios'
     | '/produto/$id'
     | '/admin'
@@ -245,6 +256,7 @@ export interface FileRouteTypes {
     | '/admin/auditoria'
     | '/admin/categorias'
     | '/admin/instagram'
+    | '/admin/segmentos'
     | '/admin/usuarios'
     | '/produto/$id'
     | '/admin/'
@@ -367,6 +379,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminInstagramRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/segmentos': {
+      id: '/admin/segmentos'
+      path: '/segmentos'
+      fullPath: '/admin/segmentos'
+      preLoaderRoute: typeof AdminSegmentosRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/usuarios': {
       id: '/admin/usuarios'
       path: '/usuarios'
@@ -409,6 +428,7 @@ interface AdminRouteChildren {
   AdminAuditoriaRoute: typeof AdminAuditoriaRoute
   AdminCategoriasRoute: typeof AdminCategoriasRoute
   AdminInstagramRoute: typeof AdminInstagramRoute
+  AdminSegmentosRoute: typeof AdminSegmentosRoute
   AdminUsuariosRoute: typeof AdminUsuariosRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AdminProdutosIdRoute: typeof AdminProdutosIdRoute
@@ -420,6 +440,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminAuditoriaRoute: AdminAuditoriaRoute,
   AdminCategoriasRoute: AdminCategoriasRoute,
   AdminInstagramRoute: AdminInstagramRoute,
+  AdminSegmentosRoute: AdminSegmentosRoute,
   AdminUsuariosRoute: AdminUsuariosRoute,
   AdminIndexRoute: AdminIndexRoute,
   AdminProdutosIdRoute: AdminProdutosIdRoute,

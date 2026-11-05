@@ -139,6 +139,36 @@ export type Database = {
           },
         ]
       }
+      product_segments: {
+        Row: {
+          product_id: string
+          segment_id: string
+        }
+        Insert: {
+          product_id: string
+          segment_id: string
+        }
+        Update: {
+          product_id?: string
+          segment_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_segments_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "product_segments_segment_id_fkey"
+            columns: ["segment_id"]
+            isOneToOne: false
+            referencedRelation: "segments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       products: {
         Row: {
           amazon_url: string | null
@@ -215,6 +245,36 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      segments: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          name: string
+          slug: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          id?: string
+          name: string
+          slug: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          name?: string
+          slug?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
       }
       user_roles: {
         Row: {
