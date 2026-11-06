@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { fetchCategories, fetchProductById, slugify, type ProductDetail } from "@/lib/products";
+import { fetchSegments, fetchProductSegmentIds, setProductSegments } from "@/lib/segments";
 import { uploadProductImage, removeProductImage } from "@/lib/storage";
 import { toast } from "sonner";
 import { Upload, Trash2, Star, StarOff } from "lucide-react";
@@ -42,6 +43,16 @@ export function ProductForm({ productId }: Props) {
     other_store_url: "",
     other_store_label: "",
   });
+  const { data: segments = [] } = useQuery({ queryKey: ["segments"], queryFn: fetchSegments });
+  const { data: existingSegs } = useQuery({
+    queryKey: ["admin-product-segments", productId],
+    queryFn: () => fetchProductSegmentIds(productId!),
+    enabled: !!productId,
+  });
+  const [segIds, setSegIds] = useState<string[]>([]);
+  useEffect(() => {
+    if (existingSegs) setSegIds(existingSegs);
+  }, [existingSegs]);
   const [images, setImages] = useState<ProductDetail["images"]>([]);
   const [pending, setPending] = useState<{ file: File; preview: string }[]>([]);
   const [uploading, setUploading] = useState(false);
@@ -104,6 +115,8 @@ export function ProductForm({ productId }: Props) {
         if (error) throw error;
         id = data.id as string;
       }
+
+      await setProductSegments(id, segIds);
 
       // Envia as fotos que foram escolhidas antes de salvar
       if (pending.length > 0) {
@@ -263,6 +276,24 @@ export function ProductForm({ productId }: Props) {
             ))}
           </select>
         </Field>
+        {segments.length > 0 && (
+          <Field label="Indicado para (tipos de cliente)">
+            <div className="flex flex-wrap gap-3 pt-1">
+              {segments.map((sg) => (
+                <label key={sg.id} className="inline-flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={segIds.includes(sg.id)}
+                    onChange={(e) =>
+                      setSegIds((ids) => (e.target.checked ? [...ids, sg.id] : ids.filter((x) => x !== sg.id)))
+                    }
+                  />
+                  {sg.name}
+                </label>
+              ))}
+            </div>
+          </Field>
+        )}
         <Field label="Preço (R$) — deixe vazio para 'Sob consulta'">
           <input
             type="number"
