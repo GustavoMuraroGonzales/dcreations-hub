@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, stripSearchParams } from "@tanstack/react-router";
 import { zodValidator, fallback } from "@tanstack/zod-adapter";
 import { z } from "zod";
 import { fetchSegmentBySlug, orderBySegment } from "@/lib/segments";
@@ -16,6 +16,7 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute("/catalogo")({
   validateSearch: zodValidator(searchSchema),
+  search: { middlewares: [stripSearchParams({ categoria: "", para: "" })] },
   head: () => ({
     meta: [
       { title: "Catálogo — Gonza3DLab" },
