@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate, stripSearchParams } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { zodValidator, fallback } from "@tanstack/zod-adapter";
 import { z } from "zod";
 import { fetchSegmentBySlug, orderBySegment } from "@/lib/segments";
@@ -10,13 +10,12 @@ import { Button } from "@/components/ui/button";
 import { canonical } from "@/lib/site";
 
 const searchSchema = z.object({
-  categoria: fallback(z.string(), "").default(""),
-  para: fallback(z.string(), "").default(""),
+  categoria: fallback(z.string().optional(), undefined),
+  para: fallback(z.string().optional(), undefined),
 });
 
 export const Route = createFileRoute("/catalogo")({
   validateSearch: zodValidator(searchSchema),
-  search: { middlewares: [stripSearchParams({ categoria: "", para: "" })] },
   head: () => ({
     meta: [
       { title: "Catálogo — Gonza3DLab" },
@@ -37,10 +36,10 @@ function Catalogo() {
   const navigate = useNavigate({ from: "/catalogo" });
   const filter = categoria || "all";
   const setFilter = (slug: string) =>
-    navigate({ search: (prev) => ({ ...prev, categoria: slug === "all" ? "" : slug }), replace: true });
+    navigate({ search: (prev) => ({ ...prev, categoria: slug === "all" ? undefined : slug }), replace: true });
   const { data: seg } = useQuery({
     queryKey: ["segment", para],
-    queryFn: () => fetchSegmentBySlug(para),
+    queryFn: () => fetchSegmentBySlug(para!),
     enabled: !!para,
   });
 
