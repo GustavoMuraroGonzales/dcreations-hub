@@ -2,7 +2,7 @@ import { Link, useNavigate, Outlet } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { useIsAdmin } from "@/lib/auth";
 import { supabase } from "@/integrations/supabase/client";
-import { LayoutDashboard, Package, Tag, LogOut, ExternalLink, Shield, Users, Instagram } from "lucide-react";
+import { LayoutDashboard, Package, Tag, LogOut, ExternalLink, Shield, Users, Instagram, Briefcase } from "lucide-react";
 import { toast } from "sonner";
 
 export function AdminLayout() {
@@ -51,6 +51,7 @@ export function AdminLayout() {
           <NavItem to="/admin" icon={LayoutDashboard} label="Início" exact />
           <NavItem to="/admin/produtos" icon={Package} label="Produtos" />
           <NavItem to="/admin/categorias" icon={Tag} label="Categorias" />
+          <NavItem to="/admin/segmentos" icon={Briefcase} label="Tipos de cliente" />
           <NavItem to="/admin/usuarios" icon={Users} label="Usuários" />
           <NavItem to="/admin/auditoria" icon={Shield} label="Auditoria" />
           <NavItem to="/admin/instagram" icon={Instagram} label="Instagram" />
@@ -74,6 +75,7 @@ export function AdminLayout() {
           <div className="flex gap-2 text-xs">
             <Link to="/admin/produtos" className="rounded border border-border px-2 py-1">Produtos</Link>
             <Link to="/admin/categorias" className="rounded border border-border px-2 py-1">Categorias</Link>
+            <Link to="/admin/segmentos" className="rounded border border-border px-2 py-1">Clientes</Link>
             <button onClick={handleSignOut} className="rounded border border-border px-2 py-1">Sair</button>
           </div>
         </div>
