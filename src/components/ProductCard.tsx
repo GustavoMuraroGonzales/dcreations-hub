@@ -1,15 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { ShoppingBag } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import type { ProductWithCategory } from "@/lib/products";
-import { BuyModal } from "./BuyModal";
+import { productQuoteLink } from "@/lib/contact";
 import { Button } from "@/components/ui/button";
 
 export function ProductCard({ product }: { product: ProductWithCategory }) {
-  const [buyOpen, setBuyOpen] = useState(false);
-
   return (
-    <>
       <div className="group flex flex-col overflow-hidden rounded-md border border-border bg-card transition-colors hover:border-primary/50">
         <Link
           to="/produto/$id"
@@ -39,7 +35,7 @@ export function ProductCard({ product }: { product: ProductWithCategory }) {
             <h3 className="font-display text-lg font-semibold group-hover:text-primary">{product.name}</h3>
           </Link>
           <p className="text-sm text-muted-foreground line-clamp-2">{product.short_description}</p>
-          <div className="mt-auto flex items-center justify-between pt-3">
+          <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-3">
             <span className="text-lg font-semibold">
               {product.price != null ? (
                 `R$ ${Number(product.price).toFixed(2).replace(".", ",")}`
@@ -47,31 +43,19 @@ export function ProductCard({ product }: { product: ProductWithCategory }) {
                 <span className="text-sm text-muted-foreground">Sob consulta</span>
               )}
             </span>
-            {product.loja_integrada_url ? (
+            <Button asChild size="sm">
               <a
-                href={product.loja_integrada_url}
+                href={productQuoteLink(product)}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
               >
-                <ShoppingBag className="h-4 w-4" />
-                Comprar
+                <MessageCircle className="h-4 w-4" />
+                Fazer Orçamento
               </a>
-            ) : (
-              <Button
-                type="button"
-                size="sm"
-                onClick={() => setBuyOpen(true)}
-              >
-                <ShoppingBag className="h-4 w-4" />
-                Comprar
-              </Button>
-            )}
+            </Button>
           </div>
         </div>
       </div>
-      <BuyModal product={product} open={buyOpen} onClose={() => setBuyOpen(false)} />
-    </>
   );
 }
 

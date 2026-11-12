@@ -1,9 +1,9 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { Layout } from "@/components/Layout";
-import { BuyModal } from "@/components/BuyModal";
+import { productQuoteLink } from "@/lib/contact";
 import { fetchProductBySlug, type ProductDetail } from "@/lib/products";
-import { ArrowLeft, ShoppingBag } from "lucide-react";
+import { ArrowLeft, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import { SITE_URL } from "@/lib/site";
@@ -67,7 +67,6 @@ export const Route = createFileRoute("/produto/$id")({
 function ProdutoPage() {
   const product = Route.useLoaderData() as ProductDetail;
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [buyOpen, setBuyOpen] = useState(false);
 
   const heroImg = selectedImage ?? product.cover_image_url ?? product.images[0]?.image_url ?? null;
 
@@ -134,43 +133,24 @@ function ProdutoPage() {
             </dl>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              {product.loja_integrada_url ? (
+              <Button asChild size="lg" className="w-full sm:w-auto">
                 <a
-                  href={product.loja_integrada_url}
+                  href={productQuoteLink(product)}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground transition hover:opacity-90"
                 >
-                  <ShoppingBag className="h-5 w-5" /> Comprar
+                  <MessageCircle className="h-5 w-5" /> Fazer Orçamento
                 </a>
-              ) : (
-                <Button
-                  type="button"
-                  size="lg"
-                  onClick={() => setBuyOpen(true)}
-                  className="flex-1"
-                >
-                  <ShoppingBag className="h-5 w-5" /> Comprar
-                </Button>
-              )}
-              <Link
-                to="/contato"
-                className="inline-flex items-center justify-center rounded-md border border-border px-6 py-3 font-semibold transition hover:border-primary/50"
-              >
-                Fazer orçamento
-              </Link>
+              </Button>
             </div>
 
             <p className="mt-6 text-xs text-muted-foreground">
-              {product.loja_integrada_url
-                ? "Compra, pagamento e envio realizados com segurança na nossa loja oficial."
-                : "Compre pelo marketplace de sua preferência. Envio e pagamento gerenciados pela plataforma escolhida."}
+              Orçamento em até 48h. Atendimento e venda pelo WhatsApp.
             </p>
           </div>
         </div>
       </section>
 
-      <BuyModal product={product} open={buyOpen} onClose={() => setBuyOpen(false)} />
     </Layout>
   );
 }

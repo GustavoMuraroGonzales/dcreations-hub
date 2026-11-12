@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Product quote actions share `productQuoteLink` in `src/lib/contact.ts`; a single tested helper keeps the destination and product-prefilled message consistent across the showcase and detail pages.
