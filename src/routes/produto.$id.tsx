@@ -1,9 +1,9 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { Layout } from "@/components/Layout";
-import { productQuoteLink } from "@/lib/contact";
+import { ProductQuoteAction } from "@/components/ProductQuoteAction";
 import { fetchProductBySlug, type ProductDetail } from "@/lib/products";
-import { ArrowLeft, MessageCircle } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import { SITE_URL } from "@/lib/site";
@@ -133,15 +133,7 @@ function ProdutoPage() {
             </dl>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg" className="w-full sm:w-auto">
-                <a
-                  href={productQuoteLink(product)}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  <MessageCircle className="h-5 w-5" /> Fazer Orçamento
-                </a>
-              </Button>
+              <ProductQuoteAction key={product.id} product={product} />
             </div>
 
             <p className="mt-6 text-xs text-muted-foreground">

@@ -12,7 +12,18 @@ describe("Orçamento de produtos pelo WhatsApp", () => {
 
   test("preenche automaticamente o produto na mensagem de orçamento, preservando acentos e símbolos", () => {
     const url = new URL(productQuoteLink({ name: "Suporte Advocacia — José & Cia #1" }));
-    assert.equal(url.searchParams.get("text"), 'Olá! Vim pelo site da Gonza3DLab e gostaria de fazer um orçamento para o produto "Suporte Advocacia — José & Cia #1".');
+    assert.equal(url.searchParams.get("text"), 'Olá! Vim pelo site da Gonza3DLab e gostaria de fazer um orçamento para o produto "Suporte Advocacia — José & Cia #1". Quantidade desejada: 1 unidade.');
     assert.deepEqual([...url.searchParams.keys()], ["text"]);
+  });
+
+  test("inclui a quantidade escolhida junto ao produto", () => {
+    const url = new URL(productQuoteLink({ name: "Porta-canetas" }, 12));
+    assert.equal(url.searchParams.get("text"), 'Olá! Vim pelo site da Gonza3DLab e gostaria de fazer um orçamento para o produto "Porta-canetas". Quantidade desejada: 12 unidades.');
+  });
+
+  test("impede orçamentos com quantidade vazia, negativa, fracionária ou inválida", () => {
+    for (const quantity of [0, -1, 1.5, NaN, Infinity, Number.MAX_SAFE_INTEGER + 1]) {
+      assert.throws(() => productQuoteLink({ name: "Porta-canetas" }, quantity), RangeError);
+    }
   });
 });

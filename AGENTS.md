@@ -9,4 +9,4 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- Product quote actions share `productQuoteLink` in `src/lib/contact.ts`; a single tested helper keeps the destination and product-prefilled message consistent across the showcase and detail pages.
+- Product quote actions share `ProductQuoteAction` and the tested `productQuoteLink` helper; shared quantity validation and message generation keep the showcase and detail pages consistent.

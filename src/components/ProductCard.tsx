@@ -1,8 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { MessageCircle } from "lucide-react";
 import type { ProductWithCategory } from "@/lib/products";
-import { productQuoteLink } from "@/lib/contact";
-import { Button } from "@/components/ui/button";
+import { ProductQuoteAction } from "@/components/ProductQuoteAction";
 
 export function ProductCard({ product }: { product: ProductWithCategory }) {
   return (
@@ -43,16 +41,7 @@ export function ProductCard({ product }: { product: ProductWithCategory }) {
                 <span className="text-sm text-muted-foreground">Sob consulta</span>
               )}
             </span>
-            <Button asChild size="sm">
-              <a
-                href={productQuoteLink(product)}
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                <MessageCircle className="h-4 w-4" />
-                Fazer Orçamento
-              </a>
-            </Button>
+            <ProductQuoteAction product={product} />
           </div>
         </div>
       </div>
